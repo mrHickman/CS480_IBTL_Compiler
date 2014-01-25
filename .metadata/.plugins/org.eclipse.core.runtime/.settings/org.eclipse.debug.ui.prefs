@@ -1,5 +1,10 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 org.eclipse.debug.ui.PREF_LAUNCH_PERSPECTIVES=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<launchPerspectives/>\r\n
 org.eclipse.debug.ui.build_before_launch=false
 org.eclipse.debug.ui.wait_for_build=never
 preferredTargets=default\:default|
+=======
+org.eclipse.debug.ui.build_before_launch=false
+org.eclipse.debug.ui.wait_for_build=never
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce

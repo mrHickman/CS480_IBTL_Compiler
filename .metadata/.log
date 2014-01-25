@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 !SESSION 2014-01-25 13:37:34.463 -----------------------------------------------
+=======
+!SESSION 2014-01-25 13:01:12.842 -----------------------------------------------
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 eclipse.buildId=4.3.0.M20130911-1000
 java.version=1.7.0_06
 java.vendor=Oracle Corporation
@@ -6,13 +10,18 @@ BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
 Framework arguments:  -product org.eclipse.epp.package.jee.product
 Command-line arguments:  -os win32 -ws win32 -arch x86_64 -product org.eclipse.epp.package.jee.product
 
+<<<<<<< HEAD
 !ENTRY org.eclipse.egit.ui 2 0 2014-01-25 13:37:42.696
+=======
+!ENTRY org.eclipse.egit.ui 2 0 2014-01-25 13:01:32.126
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 !MESSAGE Warning: The environment variable HOME is not set. The following directory will be used to store the Git
 user global configuration and to define the default location to store repositories: 'C:\Users\mr_hickman'. If this is
 not correct please set the HOME environment variable and restart Eclipse. Otherwise Git for Windows and
 EGit might behave differently since they see different configuration options.
 This warning can be switched off on the Team > Git > Confirmations and Warnings preference page.
 
+<<<<<<< HEAD
 !ENTRY org.python.pydev.shared_core 1 1 2014-01-25 13:38:37.433
 !MESSAGE Information about process of adding new interpreter:
 - Opening dialog to request executable (or jar).
@@ -34,6 +43,29 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 <lib>C:\Python26\lib\lib-tk</lib>
 <lib>C:\Python26</lib>
 <lib>C:\Python26\lib\site-packages</lib>
+=======
+!ENTRY org.python.pydev.shared_core 1 1 2014-01-25 13:03:28.482
+!MESSAGE Information about process of adding new interpreter:
+- Opening dialog to request executable (or jar).
+- Chosen interpreter (name and file):'Tuple [Python 2.7.3 -- C:\Python27\python.exe]
+- Ok, file is non-null. Getting info on:C:\Python27\python.exe
+- Beggining task:Getting libs totalWork:100
+- Setting task name:Mounting executable string...
+- Setting task name:Executing:  C:\Python27\python.exe -u C:\Users\mr_hickman\Documents\eclipse\plugins\org.python.pydev_3.2.0.201312292215\pysrc\interpreterInfo.py
+- Setting task name:Making pythonpath environment... C:\Python27\python.exe -u C:\Users\mr_hickman\Documents\eclipse\plugins\org.python.pydev_3.2.0.201312292215\pysrc\interpreterInfo.py
+- Setting task name:Making exec... C:\Python27\python.exe -u C:\Users\mr_hickman\Documents\eclipse\plugins\org.python.pydev_3.2.0.201312292215\pysrc\interpreterInfo.py
+- Setting task name:Reading output...
+- Setting task name:Waiting for process to finish.
+- Success getting the info. Result:<xml>
+<name>Python 2.7.3</name>
+<version>2.7</version>
+<executable>C:\Python27\python.exe</executable>
+<lib>C:\Python27\DLLs</lib>
+<lib>C:\Python27\lib</lib>
+<lib>C:\Python27\lib\lib-tk</lib>
+<lib>C:\Python27</lib>
+<lib>C:\Python27\lib\site-packages</lib>
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 <forced_lib>Image</forced_lib>
 <forced_lib>OpenGL</forced_lib>
 <forced_lib>__builtin__</forced_lib>
@@ -54,6 +86,10 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 <forced_lib>_functools</forced_lib>
 <forced_lib>_heapq</forced_lib>
 <forced_lib>_hotshot</forced_lib>
+<<<<<<< HEAD
+=======
+<forced_lib>_io</forced_lib>
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 <forced_lib>_json</forced_lib>
 <forced_lib>_locale</forced_lib>
 <forced_lib>_lsprof</forced_lib>
@@ -114,6 +150,7 @@ This warning can be switched off on the Team > Git > Confirmations and Warnings 
 !STACK 0
 java.lang.RuntimeException: Information about process of adding new interpreter:
 - Opening dialog to request executable (or jar).
+<<<<<<< HEAD
 - Chosen interpreter (name and file):'Tuple [Python 2.6.6 -- C:\Python26\python.exe]
 - Ok, file is non-null. Getting info on:C:\Python26\python.exe
 - Beggining task:Getting libs totalWork:100
@@ -132,6 +169,26 @@ java.lang.RuntimeException: Information about process of adding new interpreter:
 <lib>C:\Python26\lib\lib-tk</lib>
 <lib>C:\Python26</lib>
 <lib>C:\Python26\lib\site-packages</lib>
+=======
+- Chosen interpreter (name and file):'Tuple [Python 2.7.3 -- C:\Python27\python.exe]
+- Ok, file is non-null. Getting info on:C:\Python27\python.exe
+- Beggining task:Getting libs totalWork:100
+- Setting task name:Mounting executable string...
+- Setting task name:Executing:  C:\Python27\python.exe -u C:\Users\mr_hickman\Documents\eclipse\plugins\org.python.pydev_3.2.0.201312292215\pysrc\interpreterInfo.py
+- Setting task name:Making pythonpath environment... C:\Python27\python.exe -u C:\Users\mr_hickman\Documents\eclipse\plugins\org.python.pydev_3.2.0.201312292215\pysrc\interpreterInfo.py
+- Setting task name:Making exec... C:\Python27\python.exe -u C:\Users\mr_hickman\Documents\eclipse\plugins\org.python.pydev_3.2.0.201312292215\pysrc\interpreterInfo.py
+- Setting task name:Reading output...
+- Setting task name:Waiting for process to finish.
+- Success getting the info. Result:<xml>
+<name>Python 2.7.3</name>
+<version>2.7</version>
+<executable>C:\Python27\python.exe</executable>
+<lib>C:\Python27\DLLs</lib>
+<lib>C:\Python27\lib</lib>
+<lib>C:\Python27\lib\lib-tk</lib>
+<lib>C:\Python27</lib>
+<lib>C:\Python27\lib\site-packages</lib>
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 <forced_lib>Image</forced_lib>
 <forced_lib>OpenGL</forced_lib>
 <forced_lib>__builtin__</forced_lib>
@@ -152,6 +209,10 @@ java.lang.RuntimeException: Information about process of adding new interpreter:
 <forced_lib>_functools</forced_lib>
 <forced_lib>_heapq</forced_lib>
 <forced_lib>_hotshot</forced_lib>
+<<<<<<< HEAD
+=======
+<forced_lib>_io</forced_lib>
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 <forced_lib>_json</forced_lib>
 <forced_lib>_locale</forced_lib>
 <forced_lib>_lsprof</forced_lib>
@@ -294,25 +355,43 @@ java.lang.RuntimeException: Information about process of adding new interpreter:
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1450)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1426)
 
+<<<<<<< HEAD
 !ENTRY org.python.pydev.shared_core 1 1 2014-01-25 13:38:44.314
 !MESSAGE Restoring info for: C:\Python26\python.exe
 !STACK 0
 java.lang.RuntimeException: Restoring info for: C:\Python26\python.exe
+=======
+!ENTRY org.python.pydev.shared_core 1 1 2014-01-25 13:03:34.414
+!MESSAGE Restoring info for: C:\Python27\python.exe
+!STACK 0
+java.lang.RuntimeException: Restoring info for: C:\Python27\python.exe
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 	at org.python.pydev.ui.interpreters.AbstractInterpreterManager.getInterpretersFromPersistedString(AbstractInterpreterManager.java:509)
 	at org.python.pydev.ui.interpreters.AbstractInterpreterManager.internalRecreateCacheGetInterpreterInfos(AbstractInterpreterManager.java:336)
 	at org.python.pydev.ui.interpreters.AbstractInterpreterManager.setInfos(AbstractInterpreterManager.java:633)
 	at org.python.pydev.ui.pythonpathconf.AbstractInterpreterPreferencesPage$3.run(AbstractInterpreterPreferencesPage.java:262)
 	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+<<<<<<< HEAD
 Caused by: java.io.IOException: Expecting: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.python.pydev\v1_9pcnwpqtxmz4jf4u079am5are\modulesKeys to exist (and be a file).
+=======
+Caused by: java.io.IOException: Expecting: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.python.pydev\v1_258tvcdekrk5tmtf5h0ez044z\modulesKeys to exist (and be a file).
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 	at org.python.pydev.editor.codecompletion.revisited.ModulesManager.loadFromFile(ModulesManager.java:279)
 	at org.python.pydev.editor.codecompletion.revisited.SystemModulesManager.load(SystemModulesManager.java:374)
 	at org.python.pydev.ui.interpreters.AbstractInterpreterManager.getInterpretersFromPersistedString(AbstractInterpreterManager.java:507)
 	... 4 more
 
+<<<<<<< HEAD
 !ENTRY org.python.pydev.shared_core 1 1 2014-01-25 13:38:44.468
 !MESSAGE Finished restoring information for: C:\Python26\python.exe at: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.python.pydev\v1_9pcnwpqtxmz4jf4u079am5are
 !STACK 0
 java.lang.RuntimeException: Finished restoring information for: C:\Python26\python.exe at: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.python.pydev\v1_9pcnwpqtxmz4jf4u079am5are
+=======
+!ENTRY org.python.pydev.shared_core 1 1 2014-01-25 13:03:34.698
+!MESSAGE Finished restoring information for: C:\Python27\python.exe at: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.python.pydev\v1_258tvcdekrk5tmtf5h0ez044z
+!STACK 0
+java.lang.RuntimeException: Finished restoring information for: C:\Python27\python.exe at: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.python.pydev\v1_258tvcdekrk5tmtf5h0ez044z
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 	at org.python.pydev.core.log.Log.logInfo(Log.java:66)
 	at org.python.pydev.ui.interpreters.AbstractInterpreterManager.getInterpretersFromPersistedString(AbstractInterpreterManager.java:554)
 	at org.python.pydev.ui.interpreters.AbstractInterpreterManager.internalRecreateCacheGetInterpreterInfos(AbstractInterpreterManager.java:336)
@@ -320,6 +399,7 @@ java.lang.RuntimeException: Finished restoring information for: C:\Python26\pyth
 	at org.python.pydev.ui.pythonpathconf.AbstractInterpreterPreferencesPage$3.run(AbstractInterpreterPreferencesPage.java:262)
 	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
 
+<<<<<<< HEAD
 !ENTRY org.python.pydev.shared_core 4 4 2014-01-25 13:38:44.596
 !MESSAGE Info: Rebuilding internal caches: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\com.python.pydev.analysis\python_v1_9pcnwpqtxmz4jf4u079am5are\python.pydevsysteminfo (Expected error to be provided and got no error!)
 
@@ -329,12 +409,27 @@ java.lang.RuntimeException: Finished restoring information for: C:\Python26\pyth
 !ENTRY org.eclipse.jface 2 0 2014-01-25 13:44:28.551
 !MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
 !SUBENTRY 1 org.eclipse.jface 2 0 2014-01-25 13:44:28.551
+=======
+!ENTRY org.python.pydev.shared_core 4 4 2014-01-25 13:03:34.975
+!MESSAGE Info: Rebuilding internal caches: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\com.python.pydev.analysis\python_v1_258tvcdekrk5tmtf5h0ez044z\python.pydevsysteminfo (Expected error to be provided and got no error!)
+
+!ENTRY org.python.pydev.shared_core 4 4 2014-01-25 13:03:39.949
+!MESSAGE Info: Rebuilding internal caches: C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.eclipse.core.resources\.projects\CS480_IBTL_Compiler\com.python.pydev.analysis\AdditionalProjectInterpreterInfo.pydevinfo (Expected error to be provided and got no error!)
+
+!ENTRY org.eclipse.jface 2 0 2014-01-25 13:06:59.362
+!MESSAGE Keybinding conflicts occurred.  They may interfere with normal accelerator operation.
+!SUBENTRY 1 org.eclipse.jface 2 0 2014-01-25 13:06:59.362
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 !MESSAGE A conflict occurred for CTRL+SHIFT+T:
 Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(org.eclipse.jdt.ui.navigate.open.type,Open Type,
 		Open a type in a Java editor,
 		Category(org.eclipse.ui.category.navigate,Navigate,null,true),
+<<<<<<< HEAD
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@1f546c51,
+=======
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@533cee45,
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.eclipse.ui.contexts.window,,,system)
@@ -342,7 +437,11 @@ Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(com.python.pydev.analysis.actions.pyGlobalsBrowserWorkbench,Python Show Global Tokens (Global),
 		Python Show Global Tokens (Global),
 		Category(org.python.pydev.ui.category.source,PyDev - Editor,PyDev editor category,true),
+<<<<<<< HEAD
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@5f9349e8,
+=======
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@453f1eb4,
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	com.python.pydev.contexts.window,,,system)
@@ -350,7 +449,11 @@ Binding(CTRL+SHIFT+T,
 	ParameterizedCommand(Command(org.python.pydev.editor.actions.pyShowBrowser,Python Show Global Tokens (Editor),
 		Python Show Global Tokens (Editor),
 		Category(org.python.pydev.ui.category.source,PyDev - Editor,PyDev editor category,true),
+<<<<<<< HEAD
 		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@3ed94f5d,
+=======
+		org.eclipse.ui.internal.WorkbenchHandlerServiceHandler@32f8def0,
+>>>>>>> 260db47eb8de9acd3094de076dac155508c444ce
 		,,true),null),
 	org.eclipse.ui.defaultAcceleratorConfiguration,
 	org.python.pydev.ui.editor.scope,,,system)
