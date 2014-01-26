@@ -1,2 +1,6 @@
 MODULES_MANAGER_V2
-helloworld|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\helloworld.py
+constants|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\constants.py
+lexicalAnalyzer|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\lexicalAnalyzer.py
+main|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\main.py
+scanner|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\scanner.py
+token|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\token.py

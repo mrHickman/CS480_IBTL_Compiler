@@ -1,0 +1,9 @@
+'''
+Created on Jan 25, 2014
+
+@author: mr_hickman
+
+description: Holds globally defined constants
+'''
+
+BUFFERSIZE = 60

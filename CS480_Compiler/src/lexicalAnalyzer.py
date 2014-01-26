@@ -2,7 +2,14 @@
 Created on Jan 25, 2014
 
 @author: mr_hickman
+
+Description:
+    This is the primary tokenizing class. Using scanner to clean up the input from the file it 
+    traverses our dfa model to determine what attributes a token requires and produces the tokens.
 '''
+from constants.py import BUFFERSIZE as BUFFERSIZE
+
+
 '''
 regular expression for each of the 
 strings     = ^"[a-zA-Z0-9]*"$ # this includes true, false 

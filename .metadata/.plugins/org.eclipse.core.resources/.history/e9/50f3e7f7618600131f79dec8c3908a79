@@ -1,0 +1,13 @@
+'''
+Created on Jan 25, 2014
+
+@author: mr_hickman
+'''
+
+class Token:
+    def __init__(self, tokenType, value, line):
+        self.tokenType = tokenType
+        self.value = value
+        self.line = line
+    def printToken(self):
+        print '<'+self.tokenType+', '+ self.value +', '+ self.line +'>'
