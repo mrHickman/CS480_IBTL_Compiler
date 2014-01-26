@@ -1,0 +1,27 @@
+'''
+Created on Jan 25, 2014
+
+@author: mr_hickman
+'''
+from optparse import OptionParser
+
+def main():
+    parser = OptionParser("usage: %prog [options] arg1")
+    parser.add_option("-s", "--source", dest="SrcFilePath",
+                      type="string", default="",
+                      help="Input source file path")
+    (options, args) = parser.parse_args()
+    
+    if len(args) != 1:
+        parser.error("Incorrect number of arguments provided")
+    
+    SrcFilePath = options.SrcFilePath
+        
+    print 'hello'
+    print SrcFilePath
+   
+if __name__ == '__main__':
+    main()
+
+
+    

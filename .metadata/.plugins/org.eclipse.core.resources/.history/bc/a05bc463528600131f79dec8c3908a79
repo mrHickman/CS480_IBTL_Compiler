@@ -1,0 +1,23 @@
+'''
+Created on Jan 25, 2014
+
+@author: mr_hickman
+'''
+from optparse import OptionParser
+
+def main():
+    SrcFilePath = ""
+    parser = OptionParser()
+    parser.add_option("-s", "--source", dest="SrcFilePath", help="Input source file path")
+    (options, args) = parser.parse_args()
+    
+    SrcFilePath = options.SrcFilePath
+        
+    print 'hello'
+    print SrcFilePath
+   
+if __name__ == '__main__':
+    main()
+
+
+    

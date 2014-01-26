@@ -1,0 +1,39 @@
+'''
+Created on Jan 25, 2014
+
+@author: mr_hickman
+'''
+from optparse import OptionParser
+from scanner import Scanner
+
+def scan(srcFilePath):
+    myScanner = Scanner('TestFiles/test1')
+    for i in range(1,100):
+        char = myScanner.getNextCharacter()
+        if not char:        #This is the EOF character in python
+            break
+        else:
+            print char
+    
+    # myLexicalAnalyzer = lexicalAnalyzer(myScanner)
+    # myLexicalAnalyzer.tokenize()
+    
+
+def main():
+    parser = OptionParser("usage: %prog [options] arg1")
+    parser.add_option("-s", "--source", dest="SrcFilePath",
+                      type="string", default="",
+                      help="Input source file path")
+    (options, args) = parser.parse_args()
+    
+    if len(args) != 0:
+        parser.error("Incorrect number of arguments provided")
+    
+    SrcFilePath = options.SrcFilePath
+    scan(SrcFilePath)
+       
+if __name__ == '__main__':
+    main()
+
+
+    
