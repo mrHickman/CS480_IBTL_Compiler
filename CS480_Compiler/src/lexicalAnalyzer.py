@@ -12,7 +12,7 @@ from constants.py import BUFFERSIZE as BUFFERSIZE
 
 '''
 regular expression for each of the 
-strings     = ^"[a-zA-Z0-9]*"$ # this includes true, false 
+strings     = ^"[a-zA-Z0-9]*"$ # We moved True and False to keywords 
 name        = ^[a-zA-Z_][a-zA-Z0-9_]*$
 ints        = ^[0-9][0-9]*$
 floats      = ^[0-9][0-9]*.[0-9]*$|^[0-9][0-9]*e[0-9][0-9]*$
@@ -24,7 +24,7 @@ other       = ()|[]|{}|,|;|:|eof
 
 keywords currently in symbol table
 ++|--|?|!|not|+|-|*|/|%|^|or|'||'|and|'&&'|if|while|
-let|stdout|&|->|=|<|<=|=<|>|>=|=>|==|!=|not_eq
+let|stdout|&|->|=|<|<=|=<|>|>=|=>|==|!=|not_eq|true|false
 
 +|-|*|/|%|^|or|'||'|and|'&&'|if|while|
 let|stdout|=
