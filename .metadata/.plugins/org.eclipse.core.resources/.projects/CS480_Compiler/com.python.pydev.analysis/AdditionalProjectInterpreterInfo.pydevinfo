@@ -3,52 +3,43 @@
 C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.eclipse.core.resources\.projects\CS480_Compiler\com.python.pydev.analysis\v2_indexcache
 token|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\token.py
 lexicalAnalyzer|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\lexicalAnalyzer.py
-scanner|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\scanner.py
+constants|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\constants.py
 main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\main.py
 -- END DISKCACHE
 -- START DICTIONARY
-8
-8=Token.__init__
-6=Scanner.__init__
-4=Scanner
+5
+5=Token.__init__
 3=token
-7=Scanner.__getNextPos
-5=Token
-2=scanner
-1=main
+1=constants
+4=Token
+2=main
 -- END DICTIONARY
 -- START TREE 1
-11
-!<m|0|
-T|0|
-__i|0|
-buf|0|
-com|0|
-get|0|
-i|0|
-mai|1|main!10@
-sca|2|Scanner!17@scan!10@
-sou|0|
+4
+buf|1|BUFFERSIZE!11@
+mai|1|main!18@
+sca|1|scan!18@
 tok|1|Token!25@
 -- END TREE
 -- START TREE 2
-18
-!<m|0|
-__f|1|__fillBuffer!4&18@
-__g|1|__getNextPos!4&18@
-__i|2|__init__!4&18@__init__!5&26@
-_ge|0|
-buf|1|buffer!6&19@
-cur|3|currentBufferPos!7&19@currentBufferPos!6&19@currentFilePos!6&19@
-end|0|
-fil|1|file!6&19@
-get|1|getNextCharacter!4&18@
-lin|1|line!8&27@
-pri|1|printToken!5&26@
-sel|0|
-set|0|
-src|1|srcFilePath!6&19@
-tok|1|tokenType!8&27@
-typ|0|
-val|1|value!8&27@
+19
+_|0|
+__f|0|
+__g|0|
+__i|1|__init__!4&26@
+__p|0|
+buf|0|
+cur|0|
+fil|0|
+get|0|
+isc|0|
+ism|0|
+lin|1|line!5&27@
+nex|0|
+pea|0|
+pri|1|printToken!4&26@
+rea|0|
+src|0|
+tok|1|tokenType!5&27@
+val|1|value!5&27@
 -- END TREE

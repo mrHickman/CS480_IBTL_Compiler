@@ -12,12 +12,13 @@ from scanner import Scanner
 
 def scan(srcFilePath):
     myScanner = Scanner('TestFiles/test1')
+    s = ''
     while True:
         char = myScanner.getNextCharacter()
+        s = s + char
         if not char:        #This is the EOF character in python
+            print s
             break
-        else:
-            print char
     
     # myLexicalAnalyzer = lexicalAnalyzer(myScanner)
     # myLexicalAnalyzer.tokenize()

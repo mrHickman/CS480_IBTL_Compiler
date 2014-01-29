@@ -1,16 +1,1 @@
-INSTUPscanner
-C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\scanner.py
-INFOS:&&1|1|2|0&&2|3|2|1&&3|4|2|5&&3|6|2|5&&3|7|2|5&&3|8|2|5&&3|9|2|5&&2|10|2|1&&2|11|2|1&&3|6|2|12&&2|13|2|1
-srcFilePath=4
-Scanner.__init__=5
-Scanner=1
-__getNextPos=11
-__fillBuffer=10
-Scanner.__getNextPos=12
-buffer=8
-__init__=3
-getNextCharacter=13
-file=9
-currentBufferPos=6
-currentFilePos=7
-scanner=2
+DELSTRscanner

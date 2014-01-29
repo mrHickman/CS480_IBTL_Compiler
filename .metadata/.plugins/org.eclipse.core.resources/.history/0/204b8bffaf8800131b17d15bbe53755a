@@ -1,0 +1,28 @@
+//This file is used to excercise the scanner.py and the lexicalAnalyzer.py
+
+// Test comment 1       
+// Test Comment 2
+
+/*
+Test multiline Comment
+
+
+stuff
+*/
+
+/* Multiline comment that is not multiline */ /* Followed by a multiline comment */ 
+
+// This is line 15
+
+x = 3+1
+x = 3 + 1
+x = 3  	    +     1
+x=3+1
+x=-3+1
+x = 3-1
+x = 3 - 1
+
+///////////* stuff */ /*///////
+
+continued comment
+*/
