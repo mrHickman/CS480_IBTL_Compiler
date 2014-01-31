@@ -1,0 +1,57 @@
+'''
+Created on Jan 28, 2014
+
+@author: anton_000
+
+Description: 
+    Symbol Table to hold the keywords and identifiers for reference
+'''
+
+symbolTable = {}
+
+symbolTable['and']      = 'binop'
+symbolTable['or']       = 'binop'
+symbolTable['*']        = 'binop'
+symbolTable['/']        = 'binop'
+symbolTable['%']        = 'binop'
+symbolTable['^']        = 'binop'
+symbolTable['||']       = 'binop'
+symbolTable['&&']       = 'binop'
+symbolTable['+']        = 'binop'
+
+symbolTable['not']      = 'unop'
+symbolTable['sin']      = 'unop'
+symbolTable['cos']      = 'unop'
+symbolTable['tan']      = 'unop'
+symbolTable['++']       = 'unop'
+symbolTable['--']       = 'unop'
+symbolTable['!']        = 'unop'
+
+symbolTable['-']        = 'op'
+
+symbolTable['==']       = 'relop'
+symbolTable['<']        = 'relop'
+symbolTable['>']        = 'relop'
+symbolTable['<=']       = 'relop'
+symbolTable['>=']       = 'relop'
+symbolTable['!=']       = 'relop'
+symbolTable['not_eq']   = 'relop'
+
+symbolTable['if']       = 'state'
+symbolTable['while']    = 'state' 
+symbolTable['let']      = 'state'
+symbolTable['stdout']   = 'state'
+
+symbolTable['=']        = ''    #what should we label this as
+symbolTable['?']        = ''    #what should we label this as
+
+symbolTable['(']        = 'sep'
+symbolTable[')']        = 'sep'
+symbolTable['[']        = 'sep'
+symbolTable[']']        = 'sep'
+symbolTable['{']        = 'sep'
+symbolTable['}']        = 'sep'
+symbolTable[',']        = 'sep'
+symbolTable[';']        = 'sep'
+symbolTable[':']        = 'sep'
+symbolTable['eof']      = 'sep'

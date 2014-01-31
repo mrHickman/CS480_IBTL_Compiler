@@ -16,35 +16,38 @@ class Scanner:
         self.isMultiLineComment = False
         self.current = ''
         self.peak = self.file.read(1)
+        self.last = ''
                 
-    def readNextCharacter(self):
+    def _readNextCharacter(self):
         self.current = self.peak
         self.peak = self.file.read(1)
         return
         
     def getNextCharacter(self):
         
-        self.readNextCharacter()
+        self._readNextCharacter()
         
+        if self.current == '\t' :
+            self.current = ' '
+            
+        if self.last == ' ' and self.current == ' ':
+            while self.peak == ' ' or self.peak == '\t' :
+                self.peak = self.file.read(1)
+            self.getNextCharacter()
+            
         if self.current == '/' and self.peak == '/' :
             while self.current != '\n' and self.current:
-                self.readNextCharacter()
+                self._readNextCharacter()
                 
         if self.current == '/' and self.peak == '*' :
             self.isMultiLineComment = True
-            self.readNextCharacter()
                                     
         while self.isMultiLineComment and self.current != '\n' and self.current:
-            self.readNextCharacter()
+            self._readNextCharacter()
             if self.current == '*' and self.peak == '/' : 
                 self.isMultiLineComment = False
-                self.readNextCharacter()
+                self._readNextCharacter()
                 self.getNextCharacter() # Case for /**//**/
-                
-        if (self.current == ' ' or self.current == '\t') and (self.peak == ' ' or self.peak == '\t') :
-            self.current = ' '
-            while self.peak == ' ' or self.peak == '\t' :
-                self.peak = self.file.read(1)
-                
-        return self.current
-             
+            
+        self.last = self.current        
+        return self.current       

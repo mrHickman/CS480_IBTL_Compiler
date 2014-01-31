@@ -1,0 +1,183 @@
+'''
+Created on Jan 25, 2014
+
+@author: mr_hickman
+
+Description:
+    This is the primary tokenizing class. Using scanner to clean up the input from the file it 
+    traverses our dfa model to determine what attributes a token requires and produces the tokens.
+'''
+
+'''
+regular expression for each of the 
+strings     = ^"[a-zA-Z0-9]*"$ # We moved True and False to keywords 
+name        = ^[a-zA-Z_][a-zA-Z0-9_]*$
+ints        = ^[0-9][0-9]*$
+floats      = ^[0-9][0-9]*.[0-9]*$|^[0-9][0-9]*e[0-9][0-9]*$
+keyword     = Check via symbol table and label appropriately
+                ex. <comparison, <>
+                    <stmts, if>
+other       = ()|[]|{}|,|;|:|eof
+
+
+keywords currently in symbol table
+++|--|?|!|not|+|-|*|/|%|^|or|'||'|and|'&&'|if|while|
+let|stdout|&|->|=|<|<=|=<|>|>=|=>|==|!=|not_eq|true|false
+
++|-|*|/|%|^|or|'||'|and|'&&'|if|while|
+let|stdout|=
+
+''' 
+
+from token import Token
+import characterCompare
+from constants import BUFFERSIZE as BUFFERSIZE
+import scanner
+
+#global variables
+_line = 1    #current line number
+__bufferPos = 0
+__currentBuffer = 0
+__buffer0 = ['']*BUFFERSIZE
+__buffer1 = ['']*BUFFERSIZE
+__myScanner = ''
+tokenList = []
+
+
+#checks if token is int or float
+def digitFSA(char):
+    num = char
+    while characterCompare.isDigit(char):
+        num = num + char
+        char = getNextChar()            
+        
+    if char != '.':
+        tokenList.append(Token('int', num, _line))
+        #add code to output myToken
+        charCheck(char)
+        return
+    else:
+        num = num + char
+        char = getNextChar()
+        while characterCompare.isDigit(char):
+            num = num + char
+            char = getNextChar()
+        tokenList.append(Token('float', num, _line))
+    #add code to output myToken
+    charCheck(char)
+    return
+
+def nameFSA(char):
+    name = char
+    char = getNextChar()
+    while characterCompare.isAlpha(char) or characterCompare.isDigit(char) or characterCompare.isUnderScore(char):
+        name = name + char
+        char = getNextChar()
+    keyword = characterCompare.isKeyword(name)
+    if keyword:
+        tokenList.append(Token(keyword, name, _line))
+        #add code to output myToken
+        charCheck(char)
+    else:
+        tokenList.append(Token('name', name, _line))
+        #add code to output myToken
+        charCheck(char)
+    return
+
+def stringFSA(char):
+    string = char
+    char = getNextChar()
+    while characterCompare.isAlpha(char) or characterCompare.isDigit(char):
+        string = string + char
+        char = getNextChar()
+        
+    if characterCompare.isQuote(char):
+        string = str + char
+        tokenList.append(Token('string', str, _line))
+        #add code to output myToken
+        char = getNextChar()
+        charCheck(char)
+    else:
+        error(string)
+    return
+
+def sepFSA(char):
+    nextChar = getNextChar()
+    twoChar = char + nextChar
+    twoKeyword = characterCompare.isKeyword(twoChar)
+    keyword = characterCompare.isKeyword(char)
+    if twoKeyword:
+        tokenList.append(Token(twoKeyword, twoChar, _line))
+        #add code to output myToken
+        char = getNextChar()
+        charCheck(char)
+    elif keyword:
+        tokenList.append(Token(keyword, char, _line))
+        #add code to output myToken
+        char = nextChar
+        charCheck(char)
+    else:
+        error(char)
+        char = getNextChar()
+        charCheck(char)
+    return
+
+def getNextChar():
+    if __bufferPos < BUFFERSIZE :
+        __bufferPos += 1
+    else : 
+        fillBuffer()
+        
+    if __currentBuffer :
+        char = __buffer1[__bufferPos]
+    else : 
+        char = __buffer0[__bufferPos]
+        
+    if char == '\n':                    #checks for end of line character
+            _line += 1
+            char = getNextChar()
+            
+    return char
+    
+def fillBuffer():
+    __bufferPos = 0
+    __currentBuffer = not __currentBuffer
+    if __currentBuffer :
+        for x in range(0, BUFFERSIZE):
+            __buffer1[x] = __myScanner.getNextChar()
+    else :
+        for x in range(0, BUFFERSIZE):
+            __buffer0[x] = __myScanner.getNextChar()
+       
+#     while True LOGIC:
+#         char = __myScanner.getNextCharacter()
+#         if not char:        #This is the EOF character in python
+#             break
+    #gets the next character from buffer
+    #checks if buffer is empty
+    #if buffer is empty then it fills it and switches to other buffer
+    #returns the next character
+    #edits the global variables buffer and pos
+
+def error(string):
+    print "Error on line " + _line + ": " + string + " is not valid\n"
+
+def charCheck(currentChar):
+    if currentChar == '' :
+        return
+    if characterCompare.isDigit(currentChar):
+        digitFSA(currentChar)
+    elif characterCompare.isAlpha(currentChar) or characterCompare.isUnderScore(currentChar):
+        nameFSA(currentChar)
+    elif characterCompare.isQuote(currentChar):
+        stringFSA(currentChar)
+    else:
+        sepFSA(currentChar)
+    return
+
+def analyze(myFile):
+    __myScanner = scanner.Scanner(myFile)
+    charCheck(getNextChar())
+    
+    
+        

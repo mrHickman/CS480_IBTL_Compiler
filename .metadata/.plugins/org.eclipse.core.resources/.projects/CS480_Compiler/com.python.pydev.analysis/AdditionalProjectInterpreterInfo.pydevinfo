@@ -2,44 +2,75 @@
 -- START DISKCACHE
 C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.eclipse.core.resources\.projects\CS480_Compiler\com.python.pydev.analysis\v2_indexcache
 token|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\token.py
-lexicalAnalyzer|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\lexicalAnalyzer.py
+characterCompare|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\characterCompare.py
 constants|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\constants.py
+symbolTable|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\symbolTable.py
+scanner|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\scanner.py
 main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\main.py
 -- END DISKCACHE
 -- START DICTIONARY
-5
-5=Token.__init__
-3=token
+12
+12=Token.__init__
+11=Scanner.__init__
+7=Scanner
+9=Scanner.getNextCharacter
+6=token
+2=characterCompare
 1=constants
-4=Token
-2=main
+10=Scanner._readNextCharacter
+5=symbolTable
+8=Token
+4=scanner
+3=main
 -- END DICTIONARY
 -- START TREE 1
-4
+31
+!<m|0|
+__b|0|
+__c|0|
+__i|0|
+__m|0|
+_bu|0|
+_li|0|
+ana|0|
 buf|1|BUFFERSIZE!11@
-mai|1|main!18@
-sca|1|scan!18@
-tok|1|Token!25@
--- END TREE
--- START TREE 2
-19
-_|0|
-__f|0|
-__g|0|
-__i|1|__init__!4&26@
-__p|0|
-buf|0|
+cha|0|
 cur|0|
+dig|0|
+err|0|
 fil|0|
 get|0|
-isc|0|
-ism|0|
-lin|1|line!5&27@
-nex|0|
-pea|0|
-pri|1|printToken!4&26@
+isa|1|isAlpha!18@
+isd|1|isDigit!18@
+isk|1|isKeyword!18@
+isq|1|isQuote!18@
+iss|0|
+isu|1|isUnderScore!18@
+lin|0|
+mai|1|main!26@
+nam|0|
+pos|0|
+sca|2|Scanner!33@scan!26@
+sel|0|
+sep|0|
+str|0|
+sym|1|symbolTable!43@
+tok|1|Token!49@
+-- END TREE
+-- START TREE 2
+14
+__i|2|__init__!7&34@__init__!8&50@
+_re|1|_readNextCharacter!7&34@
+cur|3|current!9&35@current!10&35@current!11&35@
+fil|1|file!11&35@
+get|1|getNextCharacter!7&34@
+ism|2|isMultiLineComment!9&35@isMultiLineComment!11&35@
+las|2|last!9&35@last!11&35@
+lin|1|line!12&51@
+pea|3|peak!9&35@peak!10&35@peak!11&35@
+pri|1|printToken!8&50@
 rea|0|
-src|0|
-tok|1|tokenType!5&27@
-val|1|value!5&27@
+src|1|srcFilePath!11&35@
+tok|1|tokenType!12&51@
+val|1|value!12&51@
 -- END TREE

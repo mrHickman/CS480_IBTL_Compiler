@@ -1,0 +1,10 @@
+'''
+Created on Jan 29, 2014
+
+@author: mr_hickman
+'''
+
+def isDigit(char):
+    if char != int :
+        temp = ord(char)
+     

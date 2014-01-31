@@ -1,0 +1,173 @@
+'''
+Created on Jan 25, 2014
+
+@author: mr_hickman
+
+Description:
+    This is the primary tokenizing class. Using scanner to clean up the input from the file it 
+    traverses our dfa model to determine what attributes a token requires and produces the tokens.
+'''
+from constants.py import BUFFERSIZE as BUFFERSIZE
+
+
+'''
+regular expression for each of the 
+strings     = ^"[a-zA-Z0-9]*"$ # We moved True and False to keywords 
+name        = ^[a-zA-Z_][a-zA-Z0-9_]*$
+ints        = ^[0-9][0-9]*$
+floats      = ^[0-9][0-9]*.[0-9]*$|^[0-9][0-9]*e[0-9][0-9]*$
+keyword     = Check via symbol table and label appropriately
+                ex. <comparison, <>
+                    <stmts, if>
+other       = ()|[]|{}|,|;|:|eof
+
+
+keywords currently in symbol table
+++|--|?|!|not|+|-|*|/|%|^|or|'||'|and|'&&'|if|while|
+let|stdout|&|->|=|<|<=|=<|>|>=|=>|==|!=|not_eq|true|false
+
++|-|*|/|%|^|or|'||'|and|'&&'|if|while|
+let|stdout|=
+
+''' 
+
+import characterCompare
+
+#global variables
+buffer = #first buffer
+pos = #start of buffer
+line = 1    #current line number
+
+#checks if token is int or float
+def digitFSA(char):
+    num = char
+    while isDigit(char):
+        num = num + char
+        char = getNextChar()            
+        if char == '/n':                    #checks for end of line character
+            line++
+            char = getNextChar()
+    if char != '.':
+        myToken Token('int', num, line)
+        #add code to output myToken
+        if char == eof:                        #if it hits eof then it returns and the function ends
+            return
+        charCheck(char)
+        return
+    else:
+        num = num + char
+        char = getNextChar()
+        while isDigit(char):
+            num = num + char
+            char = getNextChar()
+            if char == '/n':
+                line++
+                char = getNextChar()
+    myToken Token('float', num, line)
+    #add code to output myToken
+    if char == eof:
+        return
+    charCheck(char)
+    return
+
+def nameFSA(char):
+    name = char
+    char = getNextChar()
+    while isAlpha(char) or isDigit(char) or isUnder(char):
+        name = name + char
+        char = getNextChar()
+        if char == '/n':
+            line++
+            char = getNextChar()
+    keyword = isKeyword(name)
+    if keyword:
+        myToken Token(keyword, name, line)
+        #add code to output myToken
+        if char == eof:
+            return
+        charCheck(char)
+    else:
+        myToken Token('name', name, line)
+        #add code to output myToken
+        if char == eof:
+            return
+        charCheck(char)
+    return
+
+def stringFSA(char):
+    str = char
+    char = getNextChar()
+    while isAlpha(char) or isDigit(char):
+        str = str + char
+        char = getNextChar()
+        if char == '/n':
+            line++
+            char = getNextChar()
+    if isQuote(char):
+        str = str + char
+        myToken Token('string', str, line)
+        #add code to output myToken
+        char = getNextChar()
+        if char == eof:
+            return
+        charCheck(char)
+    else:
+        error(str)
+    return
+
+def sepFSA(char):
+    nextChar = getNextChar()
+    twoChar = char + nextChar
+    twoKeyword = isKeyword(twoChar)
+    keyword = isKeyword(char)
+    if twoKeyword:
+        myToken Token(twoKeyword, twoChar, line)
+        #add code to output myToken
+        char = getNextChar()
+        if char == eof:
+            return
+        charCheck(char)
+    elif keyword:
+        myToken Token(keyword, char, line)
+        #add code to output myToken
+        char = nextChar
+        if char == eof:
+            return
+        charCheck(char)
+    elif char == '/n':
+        line++
+        char = getNextChar()
+        if char == eof:
+            return
+        charCheck(char)
+    else:
+        error(char)
+        char = getNextChar()
+        if char == eof:
+            return
+        charCheck(char)
+    return
+
+def getNextChar():
+    #gets the next character from buffer
+    #checks if buffer is empty
+    #if buffer is empty then it fills it and switches to other buffer
+    #returns the next character
+    #edits the global variables buffer and pos
+
+def error(str):
+    print "Error on line " + line + ": " + str + " is not valid"
+
+def charCheck(currentChar):
+    nextChar = buffer(pos+1)                #peeks at next character
+    if characterCompare.isDigit(currentChar):
+        digitFSA(currentChar)
+    elif characterCompare.isAlpha(currentChar) or characterCompare.isUnder(currentChar):
+        nameFSA(currentChar)
+    elif characterComapre.isQuote(currentChar):
+        stringFSA(currentChar)
+    else:
+        sepFSA(currentChar)
+    return
+        
+

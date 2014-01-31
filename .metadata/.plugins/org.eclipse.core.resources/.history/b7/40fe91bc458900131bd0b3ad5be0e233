@@ -1,0 +1,15 @@
+'''
+Created on Jan 29, 2014
+
+@author: mr_hickman
+'''
+
+def isDigit(char):
+    if char != int :
+        char = ord(char)
+    if char <= 57 and char >= 48 :
+        return True
+    else :
+        return False
+    
+     
