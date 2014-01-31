@@ -46,3 +46,53 @@ $
 
 $
 frong
+
+abcd
+	efgh
+		ijkl
+"mnop"qrst_uvwx _yz
+
+
+ 
+
+91832			//int
+5.87649			//float
+.3325			//error
+
+CANDY			//name
+and				//keyword, binop
+AND				//name
+or				//keyword, binop
+Or				//name
+not				//keyword, unop
+sin				//keyword, unop
+cos				//keyword, unop
+taN				//name
+_hello987_876_	//name
+asdl_iske9		//name
+_				//name
+
+{				//keyword, sep
+[]				//keyword, sep	//keyword, sep
+=				//keyword, assign
+>=				//keyword, relop
+==				//keyword, relop
+$				//error
+#				//error
+/				//error
+|				//error
+?				//keyword, terop
+++				//keyword, unop
++				//keyword, binop
+--				//keyword, unop
+-				//keyword, unop
+
+"stringy"		//string
+""				//string
+"iesflj928_"	//error
+"doggy			//error
+"beep boop"		//error
+"ha	HA"			//error
+
+
+
