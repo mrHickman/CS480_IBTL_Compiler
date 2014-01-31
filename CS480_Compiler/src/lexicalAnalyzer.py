@@ -33,7 +33,8 @@ from token import Token
 import characterCompare
 from constants import BUFFERSIZE as BUFFERSIZE
 import scanner
-
+import sys
+import time 
 #checks if token is int or float
 class LexicalAnalyzer:
     def digitFSA(self, char):
@@ -123,7 +124,7 @@ class LexicalAnalyzer:
             self.charCheck(char)
         else:
             self.error(char)
-            char = self.getNextChar()
+            char = nextChar
             self.charCheck(char)
         return
     
@@ -137,11 +138,10 @@ class LexicalAnalyzer:
             char = self.__buffer0[self.__bufferPos]
         else : 
             char = self.__buffer1[self.__bufferPos]
-            
-        if char == '\n':                    #checks for end of line character
-                self._line += 1
-        elif char == '' :
+
+        if char == '' :
             self.__isEof = True     
+            
         return char
         
     def fillBuffer(self):
@@ -156,8 +156,7 @@ class LexicalAnalyzer:
                 self.__buffer0[x] = self.__myScanner.getNextCharacter()
            
     def error(self, string):
-        print "Error on line " + str(self._line) + ": " + string + " is not valid\n"
-        # TODO add what ever
+        print >> sys.stderr, "Error on line " + str(self._line) + ": " + string + " is not valid"
     
     def charCheck(self, currentChar):
         if self.__isEof :
@@ -167,6 +166,7 @@ class LexicalAnalyzer:
             currentChar = self.getNextChar()
             
         if currentChar == '\n' :
+            self._line += 1
             currentChar = self.getNextChar()
             self.charCheck(currentChar)
             return

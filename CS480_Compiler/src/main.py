@@ -54,7 +54,7 @@ def testCharacterCompare():
     c = c + ',' + str(characterCompare.isKeyword('\'')) + ',' + str(characterCompare.isKeyword('ANd'))
     print c
     
-def testLexicalAnalyzer(myFile):
+def lexicalAnalyzer(myFile):
     myLexicalAnalyzer = LexicalAnalyzer(myFile)
     for x in myLexicalAnalyzer.tokenList:
         x.printToken()
@@ -64,17 +64,20 @@ def testLexicalAnalyzer(myFile):
 def main():
     parser = OptionParser("usage: %prog [options] arg1")
     parser.add_option("-s", "--source", dest="SrcFilePath",
-                      type="string", default="",
+                      type="string", default='',
                       help="Input source file path")
+    parser.add_option("-d", "--debug", dest="DebugMode",
+                      type="string", default='',
+                      help="Debug Mode y:''")
     (options, args) = parser.parse_args()
     
-    if len(args) != 0:
+    if not len(args) <= 1:
         parser.error("Incorrect number of arguments provided")
     
-    SrcFilePath = options.SrcFilePath
-    scan(SrcFilePath)
-    testCharacterCompare()
-    testLexicalAnalyzer(SrcFilePath)
+    if options.DebugMode :
+        scan(options.SrcFilePath)
+        testCharacterCompare()
+    lexicalAnalyzer(options.SrcFilePath)
     
 if __name__ == '__main__':
     main()

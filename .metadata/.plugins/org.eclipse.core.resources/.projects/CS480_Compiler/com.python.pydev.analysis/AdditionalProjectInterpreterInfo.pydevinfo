@@ -53,7 +53,7 @@ isk|1|isKeyword!18@
 isq|1|isQuote!18@
 iss|0|
 isu|1|isUnderScore!18@
-lex|1|LexicalAnalyzer!25@
+lex|2|LexicalAnalyzer!25@lexicalAnalyzer!34@
 lin|0|
 mai|1|main!34@
 nam|0|
@@ -63,7 +63,7 @@ sel|0|
 sep|0|
 str|0|
 sym|1|symbolTable!51@
-tes|2|testCharacterCompare!34@testLexicalAnalyzer!34@
+tes|1|testCharacterCompare!34@
 tok|1|Token!57@
 -- END TREE
 -- START TREE 2
