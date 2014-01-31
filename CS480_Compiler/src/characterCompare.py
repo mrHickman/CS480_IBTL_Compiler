@@ -8,15 +8,15 @@ Description: Used as helper functions for the dfa in the lexicalAnalyzer.py
 from symbolTable import symbolTable as symbolTab
 
 def isDigit(char):
-    char = ord(char)
-    if char <= 57 and char >= 48 :
+    var = ord(char)
+    if var <= 57 and var >= 48 :
         return True
     else :
         return False
 
 def isAlpha(char):
-    char = ord(char)
-    if (char <= 90 and char >= 65) or (char <= 122 and char >= 97) :
+    var = ord(char)
+    if (var <= 90 and var >= 65) or (var <= 122 and var >= 97) :
         return True
     else :
         return False

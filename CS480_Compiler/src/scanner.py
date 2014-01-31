@@ -30,7 +30,7 @@ class Scanner:
         if self.current == '\t' :
             self.current = ' '
             
-        if self.last == ' ' and self.current == ' ':
+        if (self.last == ' ' or self.last == '\n') and self.current == ' ':
             while self.peak == ' ' or self.peak == '\t' :
                 self.peak = self.file.read(1)
             self.getNextCharacter()

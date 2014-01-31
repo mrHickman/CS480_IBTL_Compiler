@@ -2,6 +2,7 @@
 -- START DISKCACHE
 C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\.metadata\.plugins\org.eclipse.core.resources\.projects\CS480_Compiler\com.python.pydev.analysis\v2_indexcache
 token|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\token.py
+lexicalAnalyzer|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\lexicalAnalyzer.py
 characterCompare|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\characterCompare.py
 constants|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\constants.py
 symbolTable|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\symbolTable.py
@@ -9,22 +10,27 @@ scanner|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compile
 main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\main.py
 -- END DISKCACHE
 -- START DICTIONARY
-12
-12=Token.__init__
-11=Scanner.__init__
-7=Scanner
-9=Scanner.getNextCharacter
-6=token
-2=characterCompare
+17
+17=Token.__init__
+16=Scanner.__init__
+10=Scanner
+14=Scanner.getNextCharacter
+12=LexicalAnalyzer
+3=lexicalAnalyzer
+9=LexicalAnalyzer.fillBuffer
 1=constants
-10=Scanner._readNextCharacter
-5=symbolTable
-8=Token
-4=scanner
-3=main
+15=Scanner._readNextCharacter
+13=Token
+4=main
+8=LexicalAnalyzer.__init__
+7=token
+2=characterCompare
+6=symbolTable
+11=LexicalAnalyzer.getNextChar
+5=scanner
 -- END DICTIONARY
 -- START TREE 1
-31
+34
 !<m|0|
 __b|0|
 __c|0|
@@ -34,6 +40,7 @@ _bu|0|
 _li|0|
 ana|0|
 buf|1|BUFFERSIZE!11@
+c|0|
 cha|0|
 cur|0|
 dig|0|
@@ -46,31 +53,44 @@ isk|1|isKeyword!18@
 isq|1|isQuote!18@
 iss|0|
 isu|1|isUnderScore!18@
+lex|1|LexicalAnalyzer!25@
 lin|0|
-mai|1|main!26@
+mai|1|main!34@
 nam|0|
 pos|0|
-sca|2|Scanner!33@scan!26@
+sca|2|Scanner!41@scan!34@
 sel|0|
 sep|0|
 str|0|
-sym|1|symbolTable!43@
-tok|1|Token!49@
+sym|1|symbolTable!51@
+tes|2|testCharacterCompare!34@testLexicalAnalyzer!34@
+tok|1|Token!57@
 -- END TREE
 -- START TREE 2
-14
-__i|2|__init__!7&34@__init__!8&50@
-_re|1|_readNextCharacter!7&34@
-cur|3|current!9&35@current!10&35@current!11&35@
-fil|1|file!11&35@
-get|1|getNextCharacter!7&34@
-ism|2|isMultiLineComment!9&35@isMultiLineComment!11&35@
-las|2|last!9&35@last!11&35@
-lin|1|line!12&51@
-pea|3|peak!9&35@peak!10&35@peak!11&35@
-pri|1|printToken!8&50@
+25
+__b|4|__buffer1!8&27@__buffer0!8&27@__bufferPos!8&27@__bufferPos!9&27@
+__c|2|__currentBuffer!8&27@__currentBuffer!9&27@
+__i|5|__init__!10&42@__isEof!8&27@__isEof!11&27@__init__!12&26@__init__!13&58@
+__m|1|__myScanner!8&27@
+_li|1|_line!8&27@
+_re|1|_readNextCharacter!10&42@
+cha|1|charCheck!12&26@
+cur|3|current!14&43@current!15&43@current!16&43@
+dig|1|digitFSA!12&26@
+err|1|error!12&26@
+fil|2|fillBuffer!12&26@file!16&43@
+get|2|getNextCharacter!10&42@getNextChar!12&26@
+ism|2|isMultiLineComment!14&43@isMultiLineComment!16&43@
+las|2|last!14&43@last!16&43@
+lin|1|line!17&59@
+nam|1|nameFSA!12&26@
+pea|3|peak!14&43@peak!15&43@peak!16&43@
+pri|1|printToken!13&58@
 rea|0|
-src|1|srcFilePath!11&35@
-tok|1|tokenType!12&51@
-val|1|value!12&51@
+sel|0|
+sep|1|sepFSA!12&26@
+src|1|srcFilePath!16&43@
+str|1|stringFSA!12&26@
+tok|2|tokenList!8&27@tokenType!17&59@
+val|1|value!17&59@
 -- END TREE

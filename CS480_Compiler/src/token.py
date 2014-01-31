@@ -14,4 +14,4 @@ class Token:
         self.value = value
         self.line = line
     def printToken(self):
-        print '<'+self.tokenType+', '+ self.value +', '+ self.line +'>'
+        print '<'+str(self.tokenType)+', '+ str(self.value) +', '+ str(self.line) +'>'

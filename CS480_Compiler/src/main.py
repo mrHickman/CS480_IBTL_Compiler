@@ -10,9 +10,10 @@ Description:
 from optparse import OptionParser
 from scanner import Scanner
 import characterCompare
+from lexicalAnalyzer import LexicalAnalyzer
 
 def scan(srcFilePath):
-    myScanner = Scanner('TestFiles/test1')
+    myScanner = Scanner(srcFilePath)
     s = ''
     while True:
         char = myScanner.getNextCharacter()
@@ -20,6 +21,8 @@ def scan(srcFilePath):
         if not char:        #This is the EOF character in python
             print s
             break
+        
+def testCharacterCompare():
     print 'Is Digit:___________________'
     print 'Expected: True,True,False,False,False'
     c =  'Actual: ' + str(characterCompare.isDigit('0')) + ',' + str(characterCompare.isDigit('9')) + ',' + str(characterCompare.isDigit('a'))
@@ -51,10 +54,10 @@ def scan(srcFilePath):
     c = c + ',' + str(characterCompare.isKeyword('\'')) + ',' + str(characterCompare.isKeyword('ANd'))
     print c
     
-    
-        
-    
-    # myLexicalAnalyzer = lexicalAnalyzer(myScanner)
+def testLexicalAnalyzer(myFile):
+    myLexicalAnalyzer = LexicalAnalyzer(myFile)
+    for x in myLexicalAnalyzer.tokenList:
+        x.printToken()
     # myLexicalAnalyzer.tokenize()
     
 
@@ -70,7 +73,9 @@ def main():
     
     SrcFilePath = options.SrcFilePath
     scan(SrcFilePath)
-       
+    testCharacterCompare()
+    testLexicalAnalyzer(SrcFilePath)
+    
 if __name__ == '__main__':
     main()
 

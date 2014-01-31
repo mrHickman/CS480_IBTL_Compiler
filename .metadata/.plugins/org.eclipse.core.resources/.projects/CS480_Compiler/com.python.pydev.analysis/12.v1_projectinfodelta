@@ -1,13 +1,1 @@
-INSTUPlexicalAnalyzer
-C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\lexicalAnalyzer.py
-INFOS:&&2|1|2|0&&2|3|2|0&&2|4|2|0&&2|5|2|0&&2|6|2|0&&2|7|2|0&&2|8|2|0&&2|9|2|0&&2|10|2|0
-nameFSA=3
-__init__=10
-error=8
-charCheck=9
-stringFSA=4
-digitFSA=1
-fillBuffer=7
-lexicalAnalyzer=2
-getNextChar=6
-sepFSA=5
+DELSTRmain

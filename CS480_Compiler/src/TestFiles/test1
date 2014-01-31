@@ -1,6 +1,6 @@
 //This file is used to excercise the scanner.py
-test test   test 
- test test test 
+abcd efgh  ijkl 
+ mnop  qrst uvwx 
 // Test comment 1       
 // Test Comment 2
 
@@ -25,3 +25,21 @@ x = 3 - 1
 
 /* This is a multiline followed by interest thing with no space*/ Hi 
 /* Multiline *//*multiline*/ /**//**/  /*/ hello
+
+15
+15.67
+frog
+and
+_rlakjkd877698
+_lkjd78fhja
+alkdjjk_9087
+"HelloMyNameIsInigoMontoya"
+"YouKillMyFatha"
+"PrepairToTokenize"
+"HaGotYa"
+"bad"
+"over9000"
+"cheesyy"
+[
+<=
+$
