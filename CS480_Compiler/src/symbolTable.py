@@ -16,6 +16,7 @@ symbolTable = {'and'    :   'binop',
                '||'     :   'binop',
                '&&'     :   'binop',
                '+'      :   'binop',
+               '='      :   'binop',
                
                'not'    :   'unop',
                'sin'    :   'unop',
@@ -26,6 +27,8 @@ symbolTable = {'and'    :   'binop',
                '!'      :   'unop',
                
                '-'      :   'op',
+
+               '?'      :   'terop',
                
                '=='     :   'relop',
                '<'      :   'relop',
@@ -40,18 +43,15 @@ symbolTable = {'and'    :   'binop',
                'let'    :   'state',
                'stdout' :   'state',
                
-               '='      :   'assign',
+               '('      :   'paren',
+               ')'      :   'paren',
+               '['      :   'paren',
+               ']'      :   'paren',
+               '{'      :   'paren',
+               '}'      :   'paren',
                
-               '?'      :   'terop',
-               
-               '('      :   'sep',
-               ')'      :   'sep',
-               '['      :   'sep',
-               ']'      :   'sep',
-               '{'      :   'sep',
-               '}'      :   'sep',
                ','      :   'sep',
                ';'      :   'sep',
                ':'      :   'sep',
-               'eop'    :   'sep'
+               ''       :   'sep' # EOF
                }

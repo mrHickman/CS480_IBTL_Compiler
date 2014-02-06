@@ -1,0 +1,19 @@
+'''
+Created on Feb 5, 2014
+
+@author: mr_hickman
+'''
+import token
+
+class ParseNode:
+
+    def __init__(self, token, children):
+        self.token = token,
+        self.children = children
+        
+    def getChildren(self):
+        return self.children
+    
+    def getToken(self):
+        return self.token
+        

@@ -3,26 +3,36 @@
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
 		<item value="260" key="DIALOG_Y_ORIGIN"/>
-		<item value="381" key="DIALOG_HEIGHT"/>
 		<item value="1170" key="DIALOG_X_ORIGIN"/>
+		<item value="381" key="DIALOG_HEIGHT"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
 		<item value="true" key="wrap"/>
-		<item value="false" key="isRegEx"/>
 		<item value="false" key="casesensitive"/>
+		<item value="false" key="isRegEx"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value=" self.current = self.file.read(1)" key="selection"/>
+		<item value="error" key="selection"/>
 		<list key="findhistory">
-			<item value=" self.current = self.file.read(1)"/>
-			<item value="|"/>
-			<item value="&amp;"/>
-			<item value="read"/>
+			<item value="error"/>
+			<item value="print"/>
+			<item value="currentBuffer"/>
+			<item value="append"/>
+			<item value="string"/>
+			<item value="fillBuffer"/>
+			<item value="nameFSA"/>
+			<item value="charCheck"/>
 		</list>
 		<list key="replacehistory">
-			<item value="or"/>
-			<item value="and"/>
+			<item value="self.fillBuffer"/>
+			<item value="self.nameFSA"/>
+			<item value="self.charCheck"/>
+			<item value="self.digitFSA"/>
+			<item value="self.getNextChar"/>
+			<item value=""/>
+			<item value="self.__myScanner"/>
+			<item value="self.__buffer1"/>
 		</list>
 	</section>
 </section>

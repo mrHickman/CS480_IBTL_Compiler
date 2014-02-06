@@ -1,0 +1,29 @@
+'''
+Created on Feb 5, 2014
+
+@author: mr_hickman
+'''
+import parseNode
+
+class ParseTree:
+    def __init__(self, rootNode):
+        self.root = rootNode
+        self.lineage = [self.root]
+        self.children = [self.root.getChildren()]
+        self.currentChild = [-1]
+        self.currentPos = 0
+                
+    def traverse(self):
+        # size of currentChild list
+        self.children.append( self.children(self.currentPos).getChildren() )
+        if self.children(self.currentPos + 1) != '' :
+            self.currentPos += 1
+    def nextLeftMostChild(self):
+        childList = self.children(self.currentPos)
+        if self.currentChild(self.currentPos) + 1 < len(childList) :
+            temp = self.currentChild(self.currentPos) + 1
+            self.currentChild.instert(self.currentPos, temp)
+        else :
+            # all children explored move up lineage
+            temp = 1
+        return childList(self.currentChild(self.currentPos))

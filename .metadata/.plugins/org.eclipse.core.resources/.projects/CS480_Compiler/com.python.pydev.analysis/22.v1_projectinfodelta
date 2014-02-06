@@ -1,1 +1,15 @@
-DELSTRlexicalAnalyzer
+INSTUPparseTree
+C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\parseTree.py
+INFOS:&&1|1|2|0&&2|3|2|1&&3|4|2|5&&3|6|2|5&&3|7|2|5&&3|8|2|5&&3|9|2|5&&2|10|2|1&&2|11|2|1&&2|12|2|1
+root=4
+lineage=6
+ParseTree=1
+parseTree=2
+children=7
+traverse=10
+ParseTree.__init__=5
+__init__=3
+addChild=12
+currentChild=8
+nextLeftMostChild=11
+currentPos=9
