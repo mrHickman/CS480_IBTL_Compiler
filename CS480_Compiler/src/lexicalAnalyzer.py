@@ -108,12 +108,12 @@ class LexicalAnalyzer:
     
     def sepFSA(self, char):
         nextChar = self.getNextChar()
+        keyword = characterCompare.isKeyword(char)
         if nextChar :
             twoChar = char + nextChar
             twoKeyword = characterCompare.isKeyword(twoChar)
         else :
             twoKeyword = ''
-        keyword = characterCompare.isKeyword(char)
         if twoKeyword :
             self.tokenList.append(Token(twoKeyword, twoChar, self._line))
             char = self.getNextChar()
@@ -183,14 +183,14 @@ class LexicalAnalyzer:
     
     def __init__(self, myFile):
         self.tokenList = []
-        self._line = 2    #current line number
-        self.__bufferPos = 0
+        self._line = 1    #current line number
         self.__currentBuffer = 0
         self.__buffer0 = ['']*BUFFERSIZE
         self.__buffer1 = ['']*BUFFERSIZE
         self.__isEof = False
         self.__myScanner = scanner.Scanner(myFile)
         self.fillBuffer()
+        self.__bufferPos = -1
         self.charCheck(self.getNextChar())  
         
         

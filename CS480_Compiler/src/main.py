@@ -11,6 +11,10 @@ from optparse import OptionParser
 from scanner import Scanner
 import characterCompare
 from lexicalAnalyzer import LexicalAnalyzer
+from parseNode import ParseNode
+from parseTree import ParseTree
+from IBTLParser import Parser
+from token import Token
 
 def scan(srcFilePath):
     myScanner = Scanner(srcFilePath)
@@ -59,8 +63,49 @@ def lexicalAnalyzer(myFile):
     for x in myLexicalAnalyzer.tokenList:
         x.printToken()
     # myLexicalAnalyzer.tokenize()
+
+def testParseTree():
+    token1 = Token('test',1,0)
+    token2 = Token('test',2,0)
+    token3 = Token('test',3,0)
+    token4 = Token('test',4,0)
+    token5 = Token('test',5,0)
+    rootNode = ParseNode(token5)
+    Node1 = ParseNode(token1)
+    Node2 = ParseNode(token2)
+    Node3 = ParseNode(token3)
+    Node4 = ParseNode(token4)
+    rootNode.addChild(Node3)
+    rootNode.addChild(Node4)
+    Node3.addChild(Node1)
+    Node3.addChild(Node2)
+    
+    # expected traversal is 1,2,3,4,5 
+    
+    myTree = ParseTree(rootNode)
+    myNode = myTree.getNextLeftMostNode()
+    while myNode :
+        myNode.getToken().printToken()
+        # print myNode.getToken()
+        myNode = myTree.getNextLeftMostNode()
+def testParser(start, end):
+    for x in range(start, end+1) :
+        filepath = "TestFiles\\ParserTestFiles\\test" +  str(x)
+        print '\n\n ' + filepath
+        try:
+            parse(filepath)
+        except:
+            print "Failed"
+def parse(myFile):
+    myLexicalAnalyzer = LexicalAnalyzer(myFile)
+    myParser = Parser(myLexicalAnalyzer)
+    myNode = myParser.parseTree.getNextLeftMostNode()
+    while myNode :
+        myNode.getToken().printToken()
+        myNode = myParser.parseTree.getNextLeftMostNode()
     
 
+    
 def main():
     parser = OptionParser("usage: %prog [options] arg1")
     parser.add_option("-s", "--source", dest="SrcFilePath",
@@ -75,9 +120,12 @@ def main():
         parser.error("Incorrect number of arguments provided")
     
     if options.DebugMode :
-        scan(options.SrcFilePath)
-        testCharacterCompare()
-    lexicalAnalyzer(options.SrcFilePath)
+        # scan(options.SrcFilePath)
+        # testCharacterCompare()
+        testParseTree()
+        # lexicalAnalyzer(options.SrcFilePath)
+    #parse(options.SrcFilePath)
+    testParser(1,18)
     
 if __name__ == '__main__':
     main()

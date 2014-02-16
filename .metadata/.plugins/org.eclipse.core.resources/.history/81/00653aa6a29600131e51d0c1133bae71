@@ -1,0 +1,25 @@
+'''
+Created on Feb 5, 2014
+
+@author: mr_hickman
+'''
+class ParseTree:
+    def __init__(self, rootNode):
+        self.root = rootNode
+        self.currentNode = rootNode
+        self.currentChild = [-1] # current depth is the len of this
+        self.currentChildCount = rootNode.getChildCount()
+
+    def nextLeftMostNode(self):
+        # go left most
+        while currentChildCount != 0 or currentChild[-1] + 1 < self.currentChildCount :
+            self.currentChild[-1] += 1 
+            self.currentNode = self.currentNode.getChild(self.currentChild[-1])
+            self.currentChildCount = self.currentNode.getChildCount()
+        if self.currentNode.get(self.currentPos) + 1 < len(childList) :
+            temp = self.currentChild(self.currentPos) + 1
+            self.currentChild.instert(self.currentPos, temp)
+        else :
+            # all children explored move up lineage
+            temp = 1 # this is bull
+        return childList(self.currentChild(self.currentPos))

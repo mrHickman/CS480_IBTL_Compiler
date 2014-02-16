@@ -1,0 +1,195 @@
+'''
+Created on Feb 5, 2014
+
+@author: mr_hickman
+'''
+
+# addNode() gets next token and adds Node to tree
+
+def T():
+    if currentToken == '[' :
+        S()
+        if currentToken = ']' :
+            return
+        else :
+            error
+    else :
+        error
+    
+def S():
+    if currentToken = '['
+        getNextToken()
+        if currentToken = ']' :
+            getNextToken()
+            S'()
+        elif currentToken = '['
+            getNextToken()
+            S()
+            if currentToken = ']' :
+                getNextToken()
+                S'()
+            else :
+                error
+        elif currentToken.type = statement :
+            statement()
+            S'()
+        elif currentToken.type = oper :
+            oper()
+            S'()
+        else :
+            error
+    elif currentToken.type = string or int or float or name :
+        oper()    
+        S'()
+    else :
+        error
+        
+def S'():
+    if currentToken = '[' or currentToken.type = string or int or float or name :
+        S()
+        S'()
+    # the else statement of this is epsilon
+    
+def expr():
+    if currentToken = '[' :
+        getNextToken()
+        if currentToken.type = statement :
+            statement()
+        elif currentToken.type = oper :
+            oper()
+        else :
+            error
+    elif currentToken.type = string or int or float or name :
+        oper()
+    else :
+        error
+        
+def statement():
+    if currentToken.value = 'if' :
+        getNextToken()
+        expr()
+        expr()
+        if currentToken = ']' :
+            getNextToken()
+        else :
+            expr()
+            if currentToken = ']' :
+                getNextToken()
+            else :
+                error
+        break:
+    elif currentToken.value = 'while' :
+        getNextToken()
+        expr()
+        exprlist()
+        if currentToken = ']' :
+            getNextToken()
+        else :
+            error
+    elif currentToken.value = 'let' :
+        getNextToken()
+        if currentToken = '[' :
+            getNextToken()
+            varlist()
+            if currentToken = ']' :
+                getNextToken()
+            else :
+                error
+        else :
+            error
+    elif currentToken.value = 'stdout' :
+        getNextToken()
+        oper()
+        if currentToken = ']' :
+            getNextToken()
+        else :
+            error
+    default:
+        error
+        
+def oper():
+    if currentToken.type = string or int or float or name :
+        termOper()
+    else :
+        nonTermOper()
+
+def termOper():
+    addTermNode()
+    
+def nonTermOper():
+    if currentToken.type = binop :
+        binop()
+    elif currentToken.type = unop :
+        unop()
+    elif currentToken.type = op :
+        op()
+    elif currentToken.type = assign :
+        assign()
+    else :
+        error
+        
+def binop():
+    addNonTermNode()
+    oper()
+    oper()
+    if currentToken.value = ']' :
+        getNextToken()
+    else :
+        error
+        
+def unop():
+    addNonTermNode()
+    oper()
+    if currentToken.value = ']' :
+        getNextToken()
+    else :
+        error
+        
+def op():
+    addNonTermNode()
+    oper()
+    if currentToken.value = ']' :
+        getNextToken()
+    else :
+        oper()
+        if currentToken.value = ']' :
+            getNextToken()
+        else :
+            error
+        
+def assign():
+    addNonTermNode()
+    if currentToken.type = name :
+        addTermNode()
+        oper()
+        if currentToken.type = ']' :
+            getNextToken()
+        else :
+            error
+    else :
+        error
+    
+def exprlist():
+    expr()
+    if currentToken.value != ']' :
+        exprlist()
+
+def varlist():
+    if currentToken.type = name :
+        addTermNode()
+        if currentToken.type = 'type' :
+            addTermNode()
+            if currentToken.value = ']' :
+                getNextToken()
+            else :
+                error
+        else :
+            error
+    else :
+        error
+    if currentToken.value != ']' :
+        varlist()
+    
+addNonTermNode
+addTermNode
+getNextToken

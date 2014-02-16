@@ -1,0 +1,39 @@
+'''
+Created on Feb 5, 2014
+
+@author: mr_hickman
+'''
+
+from token import Token # ?
+import sys
+import time 
+from lexicalAnalyzer import LexicalAnalyzer
+from parseTree import ParseTree # fix stupid names
+#checks if token is int or float
+class Parser:
+    def __getNextToken(self):
+        self.currentTokenPos += 1
+        if self.currentTokenPos < len(self.tokenList):
+            return self.tokenList(self.currentTokenPos)
+        else:
+            return ''
+    def _buildTree(self):
+        while True :
+            currentToken = self.__getNextToken()
+            self.tokenBuffer.append(currentToken)
+            # check buffer for node creation
+            
+            if not currentToken:
+                break
+        if len(self.__tokenBuffer) > 0 :
+            errorLine = (self.__tokenBuffer(len(self.__tokenBuffer)) as Token).line 
+            print >> sys.stderr, "An error was encountered in the Parser, unused tokens found\n" + 
+        if len(self._currentRootNodes) != 1 :
+            print >> sys.stderr, "An error was encountered in the Parser, Expected 1 tree, found many\n"
+    def __init__(self, myLexiAnalyzer):
+        self._tokenList = myLexiAnalyzer.tokenList
+        self._currentRootNodes = []
+        self.__currentTokenPos = -1
+        self.__tokenBuffer = []
+        self._buildTree()
+        

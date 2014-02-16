@@ -1,0 +1,241 @@
+'''
+Created on Feb 5, 2014
+
+@author: mr_hickman
+'''
+
+from token import Token
+from lexicalAnalyzer import LexicalAnalyzer
+from parseTree import ParseTree
+from parseNode import ParseNode
+
+# TODO add parent logic to each ending
+
+class Parser:
+    def __init__(self, lexAnalyzer):
+        self.tokenList = lexAnalyzer.tokenList
+        if len(self.tokenList) > 1 :
+            self.currentToken = self.tokenList[0]
+            self.peakToken = self.tokenList[1]
+        self.tokenIndx = 1
+        self.currentNode =  ParseNode('') 
+        self.parseTree = ParseTree(self.currentNode)
+        self.T()
+        
+        
+    def T(self):
+        if self.currentToken == '[' :
+            self.S()
+            if self.currentToken == ']' :
+                return
+            else :
+                self.error()
+        else :
+            self.error()
+        
+    def S(self):
+        if self.currentToken == '[' :
+            self.getNextToken()
+            if self.currentToken == ']' :
+                self.getNextToken()
+                self.Sp()
+            elif self.currentToken == '[' :
+                self.getNextToken()
+                self.S()
+                if self.currentToken == ']' :
+                    self.getNextToken()
+                    self.Sp()
+                else :
+                    self.error()
+            elif self.currentToken.type == 'stmts' :
+                self.statement()
+                self.Sp()
+            elif self.currentToken.type == 'oper' :
+                self.oper()
+                self.Sp()
+            else :
+                self.error()
+        elif self.isTerminalType() :
+            self.oper()    
+            self.Sp()
+        else :
+            self.error()
+            
+    def Sp(self):
+        if self.currentToken == '[' or self.isTerminalType() :
+            self.S()
+            self.Sp()
+        # the else statement of this is epsilon
+        
+    def expr(self):
+        if self.currentToken == '[' :
+            self.getNextToken()
+            if self.currentToken.type == 'stmts' :
+                self.statement()
+            elif self.currentToken.type == 'oper' :
+                self.oper()
+            else :
+                self.error()
+        elif self.isTerminalType() :
+            self.oper()
+        else :
+            self.error()
+            
+    def statement(self):
+        if self.currentToken.value == 'if' :
+            self.getNextToken()
+            self.expr()
+            self.expr()
+            if self.currentToken == ']' :
+                self.getNextToken()
+            else :
+                self.expr()
+                if self.currentToken == ']' :
+                    self.getNextToken()
+                else :
+                    self.error()
+        elif self.currentToken.value == 'while' :
+            self.getNextToken()
+            self.expr()
+            self.exprlist()
+            if self.currentToken == ']' :
+                self.getNextToken()
+            else :
+                self.error()
+        elif self.currentToken.value == 'let' :
+            self.getNextToken()
+            if self.currentToken == '[' :
+                self.getNextToken()
+                self.varlist()
+                if self.currentToken == ']' :
+                    self.getNextToken()
+                else :
+                    self.error()
+            else :
+                self.error()
+        elif self.currentToken.value == 'stdout' :
+            self.getNextToken()
+            self.oper()
+            if self.currentToken == ']' :
+                self.getNextToken()
+            else :
+                self.error()
+        else:
+            self.error()
+        self.getParent()
+            
+    def oper(self):
+        if self.isTerminalType() :
+            self.termOper()
+        else :
+            self.nonTermOper()
+    
+    def termOper(self):
+        self.addTermNode()
+        
+    def nonTermOper(self):
+        if self.currentToken.type == 'binop' :
+            self.binop()
+        elif self.currentToken.type == 'unop' :
+            self.unop()
+        elif self.currentToken.type == 'op' :
+            self.op()
+        elif self.currentToken.type == 'assign' :
+            self.assign()
+        else :
+            self.error()
+        self.getParent()
+            
+    def binop(self):
+        self.addNonTermNode()
+        self.oper()
+        self.oper()
+        if self.currentToken.value == ']' :
+            self.getNextToken()
+        else :
+            self.error()
+            
+    def unop(self):
+        self.addNonTermNode()
+        self.oper()
+        if self.currentToken.value == ']' :
+            self.getNextToken()
+        else :
+            self.error()
+            
+    def op(self):
+        self.addNonTermNode()
+        self.oper()
+        if self.currentToken.value == ']' :
+            self.getNextToken()
+        else :
+            self.oper()
+            if self.currentToken.value == ']' :
+                self.getNextToken()
+            else :
+                self.error()
+            
+    def assign(self):
+        self.addNonTermNode()
+        if self.currentToken.type == 'name' :
+            self.addTermNode()
+            self.oper()
+            if self.currentToken.type == ']' :
+                self.getNextToken()
+            else :
+                self.error()
+        else :
+            self.error()
+        
+    def exprlist(self):
+        self.expr()
+        if self.currentToken.value != ']' :
+            self.exprlist()
+    
+    def varlist(self):
+        if self.currentToken.type == 'name' :
+            self.addTermNode()
+            if self.currentToken.type == 'type' :
+                self.addTermNode()
+                if self.currentToken.value == ']' :
+                    self.getNextToken()
+                else :
+                    self.error()
+            else :
+                self.error()
+        else :
+            self.error()
+        if self.currentToken.value != ']' :
+            self.varlist()
+        
+    def addNonTermNode(self):
+        tempNode = ParseNode(self.currentToken)
+        self.currentNode.addChild(tempNode)
+        self.currentNode = tempNode
+        self.getNextToken()
+        
+    def addTermNode(self):
+        tempNode = ParseNode(self.currentToken)
+        self.currentNode.addChild(tempNode)
+        self.getNextToken()
+        
+    def getNextToken(self):
+        self.currentToken = self.peakToken
+        if self.tokenIndx + 1 < len(self.tokenList):
+            self.tokenIndx += 1
+            self.peakToken = self.tokenList[self.tokenIndx]
+        else :
+            self.peakToken = ''
+    
+    def error(self):
+        raise Exception("Parser error on line " + self.currentToken.line + ' with token value ' + self.currentToken.value)
+        
+    def isTerminalType(self):
+        if self.currentToken.type == 'string' or self.currentToken.type == 'int' or self.currentToken.type == 'float' or self.currentToken.type == 'name' :
+            return True
+        else :
+            return False
+    
+    def getParent(self):
+        self.currentNode = self.currentNode.getParent()
+        
