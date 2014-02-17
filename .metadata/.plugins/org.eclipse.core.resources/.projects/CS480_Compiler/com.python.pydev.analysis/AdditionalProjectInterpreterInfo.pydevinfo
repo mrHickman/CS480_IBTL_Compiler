@@ -6,8 +6,8 @@ lexicalAnalyzer|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480
 parseTree|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\parseTree.py
 characterCompare|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\characterCompare.py
 constants|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\constants.py
-parseNode|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\parseNode.py
 symbolTable|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\symbolTable.py
+parseNode|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\parseNode.py
 scanner|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\scanner.py
 main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\main.py
 -- END DISKCACHE
@@ -25,7 +25,7 @@ main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\s
 5=parseTree
 22=Scanner._readNextCharacter
 19=ParseTree.getNextLeftMostNode
-17=Token
+16=Token
 20=ParseTree.__init__
 3=main
 10=LexicalAnalyzer.__init__
@@ -33,7 +33,7 @@ main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\s
 2=characterCompare
 6=parseNode
 8=symbolTable
-16=ParseNode
+17=ParseNode
 14=LexicalAnalyzer.getNextChar
 18=ParseNode.__init__
 7=scanner
@@ -55,29 +55,31 @@ tes|3|testParseTree!26@testCharacterCompare!26@testParser!26@
 tok|1|Token!73@
 -- END TREE
 -- START TREE 2
-42
+44
 S|0|
 Sp|0|
 T|0|
 __b|4|__buffer1!10&35@__buffer0!10&35@__bufferPos!10&35@__bufferPos!11&35@
 __c|2|__currentBuffer!10&35@__currentBuffer!11&35@
-__i|7|__init__!12&42@__init__!13&58@__isEof!10&35@__isEof!14&35@__init__!15&34@__init__!16&50@__init__!17&74@
+__i|7|__init__!12&42@__init__!13&58@__isEof!10&35@__isEof!14&35@__init__!15&34@__init__!16&74@__init__!17&50@
 __m|1|__myScanner!10&35@
 _li|1|_line!10&35@
 _pa|1|_parent!18&51@
 _re|1|_readNextCharacter!13&58@
-add|1|addChild!16&50@
+add|1|addChild!17&50@
 ass|0|
 bin|0|
 cha|1|charCheck!15&34@
 chi|1|children!18&51@
 cur|7|currentNode!19&43@currentNode!20&43@currentChildCount!20&43@currentChild!20&43@current!21&59@current!22&59@current!23&59@
+dep|1|depth!24&75@
 dig|1|digitFSA!15&34@
 err|1|error!15&34@
 exp|0|
 fil|2|fillBuffer!15&34@file!21&59@
-get|10|getToken!16&50@getNextCharacter!13&58@getNextLeftMostNode!12&42@getLine!17&74@getValue!17&74@getParent!16&50@getChild!16&50@getChildCount!16&50@getNextChar!15&34@getType!17&74@
+get|10|getToken!17&50@getNextCharacter!13&58@getNextLeftMostNode!12&42@getLine!16&74@getValue!16&74@getParent!17&50@getChild!17&50@getChildCount!17&50@getNextChar!15&34@getType!16&74@
 ism|2|isMultiLineComment!23&59@isMultiLineComment!21&59@
+iso|0|
 ist|0|
 las|2|last!23&59@last!21&59@
 lin|1|line!24&75@
@@ -87,7 +89,7 @@ op|0|
 ope|0|
 par|0|
 pea|3|peak!23&59@peak!22&59@peak!21&59@
-pri|1|printToken!17&74@
+pri|1|printToken!16&74@
 roo|1|root!20&43@
 sep|1|sepFSA!15&34@
 src|1|srcFilePath!21&59@

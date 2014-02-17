@@ -86,8 +86,8 @@ def testParseTree():
     myNode = myTree.getNextLeftMostNode()
     while myNode :
         myNode.getToken().printToken()
-        # print myNode.getToken()
         myNode = myTree.getNextLeftMostNode()
+        
 def testParser(start, end):
     for x in range(start, end+1) :
         filepath = "TestFiles\\ParserTestFiles\\test" +  str(x)
@@ -96,6 +96,7 @@ def testParser(start, end):
             parse(filepath)
         except:
             print "Failed"
+            
 def parse(myFile):
     myLexicalAnalyzer = LexicalAnalyzer(myFile)
     myParser = Parser(myLexicalAnalyzer)
@@ -103,9 +104,7 @@ def parse(myFile):
     while myNode :
         myNode.getToken().printToken()
         myNode = myParser.parseTree.getNextLeftMostNode()
-    
 
-    
 def main():
     parser = OptionParser("usage: %prog [options] arg1")
     parser.add_option("-s", "--source", dest="SrcFilePath",
@@ -120,12 +119,16 @@ def main():
         parser.error("Incorrect number of arguments provided")
     
     if options.DebugMode :
+        # These Test cases need valid input either supplied directly or via input
         # scan(options.SrcFilePath)
         # testCharacterCompare()
-        testParseTree()
+        # testParseTree()
         # lexicalAnalyzer(options.SrcFilePath)
-    #parse(options.SrcFilePath)
-    testParser(1,18)
+        # parse(options.SrcFilePath)
+        testParser(1,48)
+    else :
+        parse(options.SrcFilePath)
+    
     
 if __name__ == '__main__':
     main()

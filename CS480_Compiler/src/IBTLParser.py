@@ -30,10 +30,14 @@ class Parser:
             self.getNextToken()
             if self.currentToken.value != ']' :
                 self.S()
-                if self.currentToken.value != ']' :
-                    self.error()
-            else :
-                return
+                
+            # print 'debug assist, token indx = ' + str(self.tokenIndx) + ' length = ' + str(len(self.tokenList))
+            
+            if self.currentToken.value != ']': 
+                self.error()
+            if self.tokenIndx + 1 != len(self.tokenList) or self.peakToken:
+                self.error()  
+
         else :
             self.error()
         
@@ -54,8 +58,16 @@ class Parser:
             elif self.currentToken.tokenType == 'stmts' :
                 self.statement()
                 self.Sp()
-            elif self.currentToken.tokenType == 'oper' :
+            elif self.isOperType() :
                 self.oper()
+                self.Sp()
+            elif self.isTerminalType() :
+                self.oper()    
+                self.Sp()
+                if self.currentToken.value != ']':
+                    self.error()
+                else :
+                    self.getNextToken()
                 self.Sp()
             else :
                 self.error()
@@ -76,12 +88,22 @@ class Parser:
             self.getNextToken()
             if self.currentToken.tokenType == 'stmts' :
                 self.statement()
-            elif self.currentToken.tokenType == 'oper' :
-                self.oper()
+            elif self.isOperType() :
+                self.nonTermOper()
             else :
                 self.error()
         elif self.isTerminalType() :
-            self.oper()
+            self.termOper()
+        else :
+            self.error()
+            
+    def operExpr(self): #remove when time permits
+        if self.currentToken.value == '[' :
+            self.getNextToken()
+            if self.isOperType() :
+                self.nonTermOper()
+        elif self.isTerminalType() :
+            self.termOper()
         else :
             self.error()
             
@@ -111,7 +133,8 @@ class Parser:
             if self.currentToken.value == '[' :
                 self.getNextToken()
                 self.varlist()
-                if self.currentToken.value == ']' :
+                if self.currentToken.value == ']' and self.peakToken.value == ']':
+                    self.getNextToken()
                     self.getNextToken()
                 else :
                     self.error()
@@ -152,8 +175,8 @@ class Parser:
             
     def binop(self):
         self.addNonTermNode()
-        self.oper()
-        self.oper()
+        self.operExpr()
+        self.operExpr()
         if self.currentToken.value == ']' :
             self.getNextToken()
         else :
@@ -161,7 +184,7 @@ class Parser:
             
     def unop(self):
         self.addNonTermNode()
-        self.oper()
+        self.operExpr()
         if self.currentToken.value == ']' :
             self.getNextToken()
         else :
@@ -169,11 +192,11 @@ class Parser:
             
     def op(self):
         self.addNonTermNode()
-        self.oper()
+        self.operExpr()
         if self.currentToken.value == ']' :
             self.getNextToken()
         else :
-            self.oper()
+            self.operExpr()
             if self.currentToken.value == ']' :
                 self.getNextToken()
             else :
@@ -183,7 +206,7 @@ class Parser:
         self.addNonTermNode()
         if self.currentToken.tokenType == 'name' :
             self.addTermNode()
-            self.oper()
+            self.operExpr()
             if self.currentToken.value == ']' :
                 self.getNextToken()
             else :
@@ -197,18 +220,26 @@ class Parser:
             self.exprlist()
     
     def varlist(self):
-        if self.currentToken.tokenType == 'name' :
-            self.addTermNode()
-            if self.currentToken.tokenType == 'type' :
-                self.addTermNode()
-                if self.currentToken.value == ']' :
-                    self.getNextToken()
-                else :
-                    self.error()
-            else :
-                self.error()
+        if self.currentToken.value == '[' :
+            self.getNextToken()
         else :
             self.error()
+            
+        if self.currentToken.tokenType == 'name' :
+            self.addTermNode()
+        else :
+            self.error()
+            
+        if self.currentToken.tokenType == 'type' :
+            self.addTermNode()
+        else :
+            self.error()
+            
+        if self.currentToken.value == ']' :
+            self.getNextToken()
+        else :
+            self.error()
+            
         if self.currentToken.value != ']' :
             self.varlist()
         
@@ -231,7 +262,7 @@ class Parser:
             self.peakToken = ''
         # self.currentToken.printToken()
     def error(self):
-            print >> sys.stderr,"Parser error on line " + str(self.currentToken.line) + ' with token value ' + str(self.currentToken.value)
+            print >> sys.stderr,"Parser error on line " + str(self.currentToken.line) + ' with token value ' + str(self.currentToken.value) + ' token index ' + str(self.tokenIndx)
             sys.stdout.flush()
             raise Exception("Parser error on line " + str(self.currentToken.line) + ' with token value ' + str(self.currentToken.value))
         
@@ -244,3 +275,8 @@ class Parser:
     def getParent(self):
         self.currentNode = self.currentNode.getParent()
         
+    def isOperType(self):
+        if self.currentToken.tokenType == 'binop' or self.currentToken.tokenType == 'unop' or self.currentToken.tokenType == 'op' or self.currentToken.tokenType == 'assign' :
+            return True
+        else :
+            return False

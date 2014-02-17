@@ -1,0 +1,8 @@
+FILE = 
+default: "TestFiles/ParserTestFiles/test1"
+	python main.py -s $(FILE) > output.txt
+debug:
+	python main.py -s "N/A" -d "y" > output2.txt
+clean:
+	rm -f output.txt 
+	rm -f output2.txt

@@ -22,6 +22,7 @@ class ParseTree:
             self.currentNode = self.currentNode.getParent()
             self.currentChild.pop()
             self.currentChildCount.pop()
+            leftMost.getToken().depth = len(self.currentChild)
             return leftMost
         else:
             # Is finished
