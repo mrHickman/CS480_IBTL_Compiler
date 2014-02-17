@@ -88,7 +88,7 @@ def testParseTree():
         myNode.getToken().printToken()
         myNode = myTree.getNextLeftMostNode()
         
-def testParser(start, end):
+def testParser(start, end, isWin):
     for x in range(start, end+1) :
         filepath = "TestFiles/ParserTestFiles/test" +  str(x)
         print '\n\n ' + filepath

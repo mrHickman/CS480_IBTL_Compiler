@@ -88,9 +88,12 @@ def testParseTree():
         myNode.getToken().printToken()
         myNode = myTree.getNextLeftMostNode()
         
-def testParser(start, end):
+def testParser(start, end, isWin):
     for x in range(start, end+1) :
-        filepath = "TestFiles/ParserTestFiles/test" +  str(x)
+        if isWin:
+            filepath = "TestFiles\\ParserTestFiles\\test" +  str(x)
+        else:
+            filepath = "TestFiles/ParserTestFiles/test" +  str(x)
         print '\n\n ' + filepath
         try:
             parse(filepath)
@@ -113,6 +116,9 @@ def main():
     parser.add_option("-d", "--debug", dest="DebugMode",
                       type="string", default='',
                       help="Debug Mode y:''")
+    parser.add_option("-w", "--isWin", dest="IsWin",
+                      type="string", default='y',
+                      help="IsWin or IsUnix")
     (options, args) = parser.parse_args()
     
     if not len(args) <= 1:
@@ -125,7 +131,7 @@ def main():
         # testParseTree()
         # lexicalAnalyzer(options.SrcFilePath)
         # parse(options.SrcFilePath)
-        testParser(1, 48)
+        testParser(1,48)
     else :
         parse(options.SrcFilePath)
     

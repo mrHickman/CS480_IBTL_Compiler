@@ -90,7 +90,7 @@ def testParseTree():
         
 def testParser(start, end):
     for x in range(start, end+1) :
-        filepath = "TestFiles/ParserTestFiles/test" +  str(x)
+        filepath = "TestFiles\\ParserTestFiles\\test" +  str(x)
         print '\n\n ' + filepath
         try:
             parse(filepath)
@@ -125,7 +125,7 @@ def main():
         # testParseTree()
         # lexicalAnalyzer(options.SrcFilePath)
         # parse(options.SrcFilePath)
-        testParser(1, 48)
+        testParser(1,48)
     else :
         parse(options.SrcFilePath)
     
