@@ -47,5 +47,10 @@ symbolTable = {'and'    :   'binop',
                'bool'   :   'type',
                'int'    :   'type',
                'float'  :   'type',
-               'string' :   'type'
+               'string' :   'type',
+               
+               'true'   :   'bool',
+               'false'  :   'bool',
+               
+               's>f' : 'cast'
                }

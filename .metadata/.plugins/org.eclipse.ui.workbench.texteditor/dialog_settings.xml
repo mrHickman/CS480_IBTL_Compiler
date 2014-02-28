@@ -2,9 +2,9 @@
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
 		<item value="257" key="DIALOG_WIDTH"/>
-		<item value="260" key="DIALOG_Y_ORIGIN"/>
+		<item value="270" key="DIALOG_Y_ORIGIN"/>
 		<item value="381" key="DIALOG_HEIGHT"/>
-		<item value="1170" key="DIALOG_X_ORIGIN"/>
+		<item value="1566" key="DIALOG_X_ORIGIN"/>
 		<item value="1|Segoe UI|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|Segoe UI" key="DIALOG_FONT_NAME"/>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
@@ -13,26 +13,26 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="sep" key="selection"/>
+		<item value="bool" key="selection"/>
 		<list key="findhistory">
-			<item value="sep"/>
-			<item value="&apos;&apos;"/>
-			<item value="relop"/>
-			<item value="bin"/>
-			<item value="&apos;statement&apos;"/>
-			<item value="parent"/>
-			<item value="currenToken"/>
-			<item value="error"/>
+			<item value="boolean"/>
+			<item value="name"/>
+			<item value="tru"/>
+			<item value="true"/>
+			<item value="tokenIndx"/>
+			<item value="f"/>
+			<item value="&apos;type&apos;"/>
+			<item value="18"/>
 		</list>
 		<list key="replacehistory">
+			<item value="bool"/>
+			<item value="x"/>
+			<item value=".tokenType"/>
+			<item value="currentToken.value"/>
 			<item value="binop"/>
 			<item value="&apos;stmts&apos;"/>
 			<item value="currentToken"/>
 			<item value="self.error()"/>
-			<item value="self.varlist()"/>
-			<item value="self.exprlist()"/>
-			<item value="self.addNonTermNode()"/>
-			<item value="self.addTermNode()"/>
 		</list>
 	</section>
 </section>

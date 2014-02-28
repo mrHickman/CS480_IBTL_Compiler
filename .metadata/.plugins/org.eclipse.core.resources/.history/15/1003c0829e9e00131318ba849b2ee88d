@@ -1,0 +1,47 @@
+'''
+Created on Jan 28, 2014
+
+@author: anton_000
+
+Description: 
+    Symbol Table to hold the keywords and identifiers for reference
+'''
+
+operationType = {'and'    :  [['bool', 'bool']],
+               'or'     :   [['bool', 'bool']],
+               '||'     :   [['bool', 'bool']],
+               '&&'     :   [['bool', 'bool']],
+               '!'      :   [['bool']],
+               'not'    :   [['bool']],
+
+               '*'      :   [['int', 'int'], ['float', 'float']],
+               '/'      :   [['int', 'int'], ['float', 'float']],
+               '%'      :   [['int', 'int'], ['float', 'float']],
+               '^'      :   [['int', 'int'], ['float', 'float']],
+               '+'      :   [['int', 'int'], ['float', 'float'], ['string', 'string']],               
+               
+               '='      :   [['int', 'int'], ['float', 'float']],
+               '<'      :   [['int', 'int'], ['float', 'float']],
+               '>'      :   [['int', 'int'], ['float', 'float']],
+               '<='     :   [['int', 'int'], ['float', 'float']],
+               '>='     :   [['int', 'int'], ['float', 'float']],
+               '!='     :   [['int', 'int'], ['float', 'float']],
+               'not_eq' :   [['int', 'int'], ['float', 'float']],
+               
+               'sin'    :   [['float']],
+               'cos'    :   [['float']],
+               'tan'    :   [['float']],
+               
+               '++'     :   [['int'], ['float']],
+               '--'     :   [['int'], ['float']],
+               
+               
+               '-'      :   [['int'], ['float'], ['int', 'int'], ['float', 'float']],
+
+               'if'     :   [['bool', ''], ['bool', '', '']],
+               'while'  :   [['bool', 'stmts', '']],
+               'let'    :   [['name', '']],
+               'stdout' :   [['string']],
+                              
+               ':='     :   [['name', 'bool'], ['name', 'int'], ['name', 'float'], ['name', 'string']]
+               }

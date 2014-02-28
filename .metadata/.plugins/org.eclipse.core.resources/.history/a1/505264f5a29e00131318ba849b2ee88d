@@ -1,0 +1,24 @@
+from parseTree import ParseTree
+from operationType import OperationType
+
+class TypeChecker:
+    def __init__(self, parseTree):
+        self.ParseTree = parseTree
+        self.nodeStack = []
+        self.nodeStack.append(self.ParseTree.getNextLeftMostNode())
+        self.typeStack.append(self.nodeStack[0].getToken().getType())
+        self.checkType()
+    def checkType(self):
+        while True :
+            while self.typeStack[-1]
+    def isTypeTerminal(self):
+        type = self.typeStack[-1]  
+        if type == 'bool' or type == 'int' or  type == 'float' or type == 'string' or type == 'name':
+            return True
+        else :
+            return False
+    def getNextNode(self):
+    def getScopeNode(self):
+    def convertScopeToFloat(self):
+        
+        

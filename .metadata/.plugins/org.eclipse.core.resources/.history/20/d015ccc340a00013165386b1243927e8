@@ -1,0 +1,28 @@
+'''
+Created on Feb 27, 2014
+
+@author: mr_hickman
+'''
+
+class ParserGFourthOutput:
+    '''
+    classdocs
+    '''
+    
+    def __init__(self, parseTree):
+
+        self.parseTree = parseTree
+        self.currentNode = ''
+        print 'yo'
+        self.peakNode = self.parseTree.getNextLeftMostNode()
+        self.getNextNode()
+        self.generateGFourth()
+    
+    def getNextNode(self):
+        self.currentNode =  self.peakNode
+        self.peakNode = self.parseTree.getNextLeftMostNode()
+    
+    def generateGFourth(self):
+        while self.peakNode:
+            print self.currentNode.getValue()
+            self.getNextNode()

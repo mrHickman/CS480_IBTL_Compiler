@@ -1,0 +1,55 @@
+'''
+Created on Jan 28, 2014
+
+@author: anton_000
+
+Description: 
+    Symbol Table to hold the keywords and identifiers for reference
+'''
+# Values are determined via, 0-n-2 are argument param, n-1 is return type
+OperationType = {'and'    :  [['bool', 'bool', 'bool']],
+               'or'     :   [['bool', 'bool', 'bool']],
+               '||'     :   [['bool', 'bool', 'bool']],
+               '&&'     :   [['bool', 'bool', 'bool']],
+               '!'      :   [['bool', 'bool']],
+               'not'    :   [['bool', 'bool']],
+
+               '*'      :   [['int', 'int', 'int'], ['float', 'float', 'float']],
+               '/'      :   [['int', 'int', 'int'], ['float', 'float', 'float']],
+               '%'      :   [['int', 'int', 'int'], ['float', 'float', 'float']],
+               '^'      :   [['int', 'int', 'int'], ['float', 'float', 'float']],
+               '+'      :   [['int', 'int', 'int'], ['float', 'float', 'float'], ['string', 'string', 'string']],               
+               
+               '='      :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
+               '<'      :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
+               '>'      :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
+               '<='     :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
+               '>='     :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
+               '!='     :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
+               'not_eq' :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
+               
+               'sin'    :   [['float', 'float']],
+               'cos'    :   [['float', 'float']],
+               'tan'    :   [['float', 'float']],
+               
+               '++'     :   [['int', 'int'], ['float', 'float']],
+               '--'     :   [['int', 'int'], ['float', 'float']],
+               
+               
+               '-'      :   [['int', 'int'], ['float', 'float'], ['int', 'int', 'int'], ['float', 'float', 'float']],
+
+               'if'     :   [['bool', 'int', 'int'], ['bool', 'float', 'float'], ['bool', 'string', 'string'], 
+                             ['bool', 'bool', 'bool'], ['bool', '', ''], ['bool', 'name', 'int'], ['bool', 'name', 'float'], 
+                             ['bool', 'name', 'string'], ['bool', 'name', 'bool'], 
+                             ['bool', 'int', 'int', 'int'], ['bool', 'float', 'float', 'float'], ['bool', 'string', 'string'], 
+                             ['bool', 'bool', 'bool'], ['bool', '', ''], ['bool', 'name', 'int'], ['bool', 'name', 'float'], 
+                             ['bool', 'name', 'string'], ['bool', 'name', 'bool']
+                            ],
+               'while'  :   [['bool', 'stmts', '?', '']],
+               'let'    :   [['name', '?', '']],
+               'stdout' :   [['string'], ''],
+                              
+               ':='     :   [['name', 'bool', ''], ['name', 'int', ''], ['name', 'float', ''], ['name', 'string', '']],
+               
+               'castfloat' : [['int', 'float'], ['float', 'float']]
+               }

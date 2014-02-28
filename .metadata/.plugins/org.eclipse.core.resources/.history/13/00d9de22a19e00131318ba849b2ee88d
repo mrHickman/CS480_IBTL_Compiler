@@ -1,0 +1,8 @@
+from parseTree import ParseTree
+from operationType import OperationType
+
+class TypeChecker:
+    def __init__(self, parseTree):
+        self.ParseTree = parseTree
+        self.root = self.ParseTree.getRoot()
+        

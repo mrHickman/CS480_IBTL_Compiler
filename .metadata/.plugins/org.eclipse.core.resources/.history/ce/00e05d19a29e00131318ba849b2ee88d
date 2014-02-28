@@ -1,0 +1,15 @@
+from parseTree import ParseTree
+from operationType import OperationType
+
+class TypeChecker:
+    def __init__(self, parseTree):
+        self.ParseTree = parseTree
+        self.nodeStack = []
+        self.nodeStack.append(self.ParseTree.getNextLeftMostNode())
+        self.typeStack.append(self.nodeStack[0].getType())
+    def checkType(self):
+    def getNextNode(self):
+    def getScopeNode(self):
+    def convertScopeToFloat(self):
+        
+        

@@ -48,12 +48,29 @@ class LexicalAnalyzer:
             num = num + char
             char = self.getNextChar()            
             
-        if char != '.':
-            self.tokenList.append(Token('int', num, self._line))
-            self.charCheck(char)
-            return
+        if char != '.': 
+            if char == 'e' :
+                num = num + char
+                char = self.getNextChar()
+                if char == '-' :
+                    num = num + char
+                    char = self.getNextChar()
+                    
+                while characterCompare.isDigit(char):
+                    num = num + char
+                    char = self.getNextChar()
+                    
+                self.tokenList.append(Token('float', num, self._line))
+                self.charCheck(char)
+                return
+            else :
+                self.tokenList.append(Token('int', num, self._line))
+                self.charCheck(char)
+                return
         else:
-            num = num + char
+            self.floatFSA(num)
+            # Old float code
+            '''num = num + char
             char = self.getNextChar()
             if not char :
                 self.tokenList.append(Token('float', num, self._line))
@@ -65,8 +82,33 @@ class LexicalAnalyzer:
                 
             self.tokenList.append(Token('float', num, self._line))
             self.charCheck(char)
-            return
-    
+            return'''
+        
+    def floatFSA(self, char):
+        num = char + '.'
+        char = self.getNextChar()
+        while characterCompare.isDigit(char):
+            num = num + char
+            char = self.getNextChar()
+        
+        if char == 'e' :
+            num = num + char
+            char = self.getNextChar()
+            if char == '-' :
+                num = num + char
+                char = self.getNextChar()
+                
+            while characterCompare.isDigit(char):
+                num = num + char
+                char = self.getNextChar()
+        
+        if num == '.':
+            self.error(num)
+
+        self.tokenList.append(Token('float', num, self._line))
+        self.charCheck(char)
+        return
+            
     def nameFSA(self, char):
         name = char
         char = self.getNextChar()
@@ -173,6 +215,8 @@ class LexicalAnalyzer:
         
         if characterCompare.isDigit(currentChar):
             self.digitFSA(currentChar)
+        elif currentChar == '.':
+            self.floatFSA('')
         elif characterCompare.isAlpha(currentChar) or characterCompare.isUnderScore(currentChar):
             self.nameFSA(currentChar)
         elif characterCompare.isQuote(currentChar):
@@ -192,6 +236,3 @@ class LexicalAnalyzer:
         self.fillBuffer()
         self.__bufferPos = -1
         self.charCheck(self.getNextChar())  
-        
-        
-            

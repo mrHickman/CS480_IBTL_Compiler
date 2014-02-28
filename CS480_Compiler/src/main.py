@@ -93,17 +93,36 @@ def testParser(start, end):
         filepath = "TestFiles/ParserTestFiles/test" +  str(x)
         print '\n\n ' + filepath
         try:
-            parse(filepath)
+            parse(filepath, True, False, False)
         except:
             print "Failed"
             
-def parse(myFile):
+def testSemanticParser(start, end):
+    for x in range(start, end+1) :
+        filepath = "TestFiles/SemanticParserTestFiles/Test" +  str(x) + '.txt'
+        print '\n\n ' + filepath
+        try:
+            parse(filepath, False, True, False)
+        except:
+            print "Failed"
+            
+def testGFourthOutput(start, end):
+    for x in range(start, end+1) :
+        filepath = "TestFiles/SemanticParserTestFiles/Test" +  str(x) + '.txt'
+        print '\n\n ' + filepath
+        try:
+            parse(filepath, False, True, True)
+        except:
+            print "Failed"
+            
+def parse(myFile, printTree, checkSemantics, genGFourth):
     myLexicalAnalyzer = LexicalAnalyzer(myFile)
-    myParser = Parser(myLexicalAnalyzer)
+    myParser = Parser(myLexicalAnalyzer, checkSemantics, genGFourth)
     myNode = myParser.parseTree.getNextLeftMostNode()
-    while myNode :
-        myNode.getToken().printToken()
-        myNode = myParser.parseTree.getNextLeftMostNode()
+    if printTree:
+        while myNode :
+            myNode.getToken().printToken()
+            myNode = myParser.parseTree.getNextLeftMostNode()
 
 def main():
     parser = OptionParser("usage: %prog [options] arg1")
@@ -121,15 +140,23 @@ def main():
     if options.DebugMode :
         # These Test cases need valid input either supplied directly or via input
         # scan(options.SrcFilePath)
-        # testCharacterCompare()
-        # testParseTree()
+        testCharacterCompare()
+        printBreak()
+        testParseTree()
+        printBreak()
         # lexicalAnalyzer(options.SrcFilePath)
         # parse(options.SrcFilePath)
         testParser(1, 48)
+        printBreak()
+        testSemanticParser(1, 51)
+        printBreak()
+        testGFourthOutput(1,52)
+        printBreak()
     else :
-        parse(options.SrcFilePath)
+        parse(options.SrcFilePath, True, True)
     
-    
+def printBreak():
+    print '_________________________________________________________________________________________'
 if __name__ == '__main__':
     main()
 

@@ -1,0 +1,53 @@
+'''
+Created on Jan 28, 2014
+
+@author: anton_000
+
+Description: 
+    Symbol Table to hold the keywords and identifiers for reference
+'''
+
+operationType = {'and'    :  [['boolean', 'boolean']],
+               'or'     :   [['boolean', 'boolean']],
+               '||'     :   [['boolean', 'boolean']],
+               '&&'     :   [['boolean', 'boolean']],
+               '!'      :   [['boolean']],
+
+               '*'      :   [['int', 'int'], ['float', 'float']],
+               '/'      :   [['int', 'int'], ['float', 'float']],
+               '%'      :   [['int', 'int'], ['float', 'float']],
+               '^'      :   [['int', 'int'], ['float', 'float']],
+               
+               
+               '+'      :   [['int', 'int'], ['float', 'float'], ['string', 'string']],
+               '='      :   [['int', 'int'], ['float', 'float']],
+               '<'      :   [['int', 'int'], ['float', 'float']],
+               '>'      :   [['int', 'int'], ['float', 'float']],
+               '<='     :   [['int', 'int'], ['float', 'float']],
+               '>='     :   [['int', 'int'], ['float', 'float']],
+               '!='     :   [['int', 'int'], ['float', 'float']],
+               'not_eq' :   [['int', 'int'], ['float', 'float']],
+               
+               'not'    :   [['boolean']],
+               'sin'    :   [['float']],
+               'cos'    :   [['float']],
+               'tan'    :   [['float']],
+               
+               '++'     :   [['int'], ['float']],
+               '--'     :   [['int'], ['float']],
+               
+               
+               '-'      :   [['int'], ['float'], ['int', 'int'], ['float', 'float']],
+
+               'if'     :   [['boolean', ''], ['boolean', '', '']],
+               'while'  :   [['boolean', 'stmts', '']],
+               'let'    :   [['name', '']],
+               'stdout' :   [['string']],
+                              
+               ':='     :   [['name', '']],
+               
+               'bool'   :   'type',
+               'int'    :   'type',
+               'float'  :   'type',
+               'string' :   'type'
+               }

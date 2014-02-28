@@ -15,9 +15,14 @@ class ParseNode:
     def getParent(self):
         return self._parent
     
+    def setChild(self, indx, child):
+        self.children[indx] = child
+        child._parent = self
+    
     def addChild(self, childParseNode):
-        childParseNode._parent = self
-        self.children.append(childParseNode)
+        if childParseNode :
+            childParseNode._parent = self
+            self.children.append(childParseNode)
             
     def getChildCount(self):
         return len(self.children)
@@ -27,4 +32,7 @@ class ParseNode:
             return self.children[indx]
         else :
             return ''
+    
+    def getValue(self):
+        return self.token.getValue()
         
