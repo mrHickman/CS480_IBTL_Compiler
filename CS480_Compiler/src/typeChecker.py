@@ -62,7 +62,7 @@ class TypeChecker:
                         newValue = currentTempNode.getValue()
                         newValue = '." ' + newValue[1:-1] + ' "'
                         currentTempNode.setValue(newValue)
-                    elif currentTempNode.getToken().getValue() == '+':
+                    elif currentTempNode.getToken().getValue() == '+' :
                         newValue = ''
                         currentTempNode.setValue(newValue)
                 tempToken = Token('noop', 'CR', self.currentNode.getToken().getLine())
