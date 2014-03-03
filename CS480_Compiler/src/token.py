@@ -22,3 +22,5 @@ class Token:
         return self.line
     def getValue(self):
         return self.value
+    def setValue(self, newValue):
+        self.value = newValue

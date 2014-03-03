@@ -13,16 +13,16 @@
 		<item value="false" key="casesensitive"/>
 		<item value="false" key="incremental"/>
 		<item value="false" key="wholeword"/>
-		<item value="bool" key="selection"/>
+		<item value="print" key="selection"/>
 		<list key="findhistory">
+			<item value="print"/>
+			<item value="true"/>
+			<item value="error(s"/>
+			<item value="error"/>
+			<item value="Nodestack"/>
+			<item value=" self.nodeStack = []"/>
 			<item value="boolean"/>
 			<item value="name"/>
-			<item value="tru"/>
-			<item value="true"/>
-			<item value="tokenIndx"/>
-			<item value="f"/>
-			<item value="&apos;type&apos;"/>
-			<item value="18"/>
 		</list>
 		<list key="replacehistory">
 			<item value="bool"/>

@@ -1,5 +1,8 @@
 from parseTree import ParseTree
 from operationType import OperationType
+from GForthConversion import FloatOp
+from parseNode import ParseNode
+from token import Token
 import sys
 class TypeChecker:
     def __init__(self, parseTree):
@@ -8,14 +11,15 @@ class TypeChecker:
         self.childCountStack = []
         self.typeStack = []
         self.getNextNode()
+        self.scopeNode = ''
         self.checkType()
+
         
     def checkType(self):
-        while self.currentNode.getParent() : # current will be the root at fail
-            while self.isTypeTerminal() and self.currentNode.getParent() :
+        while self.currentNode.getParent(): # current will be the root at fail
+            while self.isTypeTerminal() and self.currentNode.getParent():
                 self.getNextNode()
-                
-            if not self.currentNode.getParent() :
+            if not self.currentNode.getParent():
                 return #At Root Node
             
             paramList = self.checkParamSets()
@@ -24,24 +28,71 @@ class TypeChecker:
 #             print self.typeStack #Debug Print
 #             print 'paramList: ' 
 #             print paramList #Debug Print
+#             print self.currentNode.getValue()
+#             print self.currentNode.getParent().getValue()
 
             if not paramList :
                 self.error()
             else :
                 self.pop(paramList[-1])
-            
-        # Catch IF WHILE LET ?
+                
     def error(self):
-        print >> sys.stderr,"Semantic error on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue())
+        print >> sys.stderr,"Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue())
         sys.stdout.flush()
-        raise Exception("Semantic error on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue()))
-        
+        raise Exception("Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue()))
+    
+    def isSpecial(self):
+        value = self.currentNode.getToken().getValue()
+        specialValues = ['stdout', 'while', ':=', 'let']
+        try : 
+            specialValues.index(value)
+            return True
+        except :
+            return False
+    def checkSpecial(self):
+        opValue = self.currentNode.getToken().getValue()
+        if opValue == 'stdout':
+            if self.typeStack[-2] == 'string' :
+                opValue = 'CR'
+                tempTree = ParseTree(self.currentNode)
+                currentTempNode = ''
+                while currentTempNode != tempTree.getRoot():
+                    currentTempNode = tempTree.getNextLeftMostNode()
+                    if currentTempNode.getToken().getType() == 'string' :
+                        newValue = currentTempNode.getValue()
+                        newValue = '." ' + newValue[1:-1] + ' "'
+                        currentTempNode.setValue(newValue)
+                    elif currentTempNode.getToken().getValue() == '+':
+                        newValue = ''
+                        currentTempNode.setValue(newValue)
+                tempToken = Token('noop', 'CR', self.currentNode.getToken().getLine())
+                tempNode = ParseNode(tempToken)
+                tempNode._parent = self.currentNode
+                self.currentNode.children.insert(0, tempNode)
+            elif self.typeStack[-2] == 'int' or self.typeStack[-2] == 'bool' :
+                opValue = 'CR . CR'   
+            elif self.typeStack[-2] == 'float' :
+                opValue = 'CR f. CR'
+            else :
+                self.error()
+            self.currentNode.setValue(opValue)
+            return ['', '']
+        else :
+            print 'Not supported yet, sorry.'
+            self.error()
     def checkParamSets(self):
-        possParam = OperationType[self.currentNode.getToken().getValue()]
+        try :
+            possParam = OperationType[self.currentNode.getToken().getValue()]
+        except:
+            possParam = []
+            
+        if self.isSpecial() :
+            return self.checkSpecial()
+                
         for x in range(0, len(possParam)) :
             if len(possParam[x]) == self.childCountStack[-1] + 1:
                 for y in range(0, len(possParam[x])-1):
-                    if self.typeStack[-y-2] == possParam[x][y]:
+                    if self.typeStack[- self.childCountStack[-1] - 1 + y] == possParam[x][y]:
                         isValid = True
                     else :
                         isValid = False
@@ -50,15 +101,22 @@ class TypeChecker:
                     return possParam[x]
                 
         for z in range(0, self.childCountStack[-1]):
-            if self.typeStack[-z-2] == 'int':
+            if (self.typeStack[-z-2] == 'int' or self.typeStack[-z-2] == 'float') and not self.scopeNode:
                 self.convertScopeToFloat()
                 return self.checkParamSets()
+        
+        if self.currentNode == self.scopeNode and self.scopeNode:
+            self.scopeNode = ''
+            
         return ''
             
         
     def isTypeTerminal(self):
-        tempType = self.typeStack[-1]  
-        if tempType == 'bool' or tempType == 'int' or  tempType == 'float' or tempType == 'string' or tempType == 'name':
+        if len(self.typeStack) > 0 :
+            tempType = self.typeStack[-1]
+        else:
+            return True 
+        if tempType == 'bool' or tempType == 'int' or  tempType == 'float' or tempType == 'string' or tempType == 'name' or tempType == 'noop':
             return True
         else :
             return False
@@ -73,26 +131,35 @@ class TypeChecker:
         for x in range(0, argumentCount + 1) :
             self.childCountStack.pop()
             self.typeStack.pop()
-        
+            
         if returnType :
             self.typeStack.append(returnType)
             self.childCountStack.append(0)
-        
+        # else : do nothing
     def getScopeNode(self):
         currentScopeNode = self.currentNode
         parentNode = currentScopeNode.getParent()
         while self.isNumOper(parentNode):
             currentScopeNode = parentNode
             parentNode = currentScopeNode.getParent()
-        return currentScopeNode
+        self.scopeNode = currentScopeNode
     
     def convertScopeToFloat(self):
-        tempTree = ParseTree(self.getScopeNode())
-        currentNode = tempTree.getNextLeftMostNode()
+        if not self.scopeNode :
+            self.getScopeNode()
+        else :
+            return
+        tempTree = ParseTree(self.scopeNode)
+        currentNode = ''
+
         while currentNode != tempTree.getRoot():
+            currentNode = tempTree.getNextLeftMostNode()
+            if self.isNumOper(currentNode) :
+                self.convertToFloatOp(currentNode)
             if currentNode.getToken().getType() == 'int':
                 tempTree.injectType('float')            
-            currentNode = tempTree.getNextLeftMostNode()
+            
+        # self.convertToFloatOp(currentNode)
         
         for x in range (0, len(self.typeStack)) :
             if self.typeStack[x] == 'int':
@@ -100,9 +167,22 @@ class TypeChecker:
                 
     def isNumOper(self, node):
         value = node.getToken().getValue()
-        numOps = ['+', '-', '*', '^', '%', '/', '=', '<', '>', '<=', '>=', '!=', 'not_eq', 'sin', 'cos', 'tan', '++', '--', '-', 'if']
+        numOps = ['+', '-', '*', '^', '%', '/', '=', '<', '>', '<=', '>=', '!=', 'not_eq', 'sin', 'cos', 'tan', '++', '--', '-', 'endif']
         try : 
             numOps.index(value)
             return True
         except :
             return False
+        
+    def convertToFloatOp(self, node):
+        value = node.getToken().getValue()
+        if value == '%':
+            node.getToken().setValue('mod')
+        elif value == '^':
+            node.getToken().setValue('f**')
+        elif value == 'endif':
+            return
+        else :
+            value = 'f' + value
+            node.getToken().setValue(value)
+        

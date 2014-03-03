@@ -1,0 +1,143 @@
+from parseTree import ParseTree
+from operationType import OperationType
+from GForthConversion import FloatOp
+import sys
+class TypeChecker:
+    def __init__(self, parseTree):
+        self.ParseTree = parseTree
+        self.currentNode = ''
+        self.childCountStack = []
+        self.typeStack = []
+        self.getNextNode()
+        self.scopeNode = ''
+        self.checkType()
+
+        
+    def checkType(self):
+        try :
+            while self.currentNode and self.currentNode.getParent() : # current will be the root at fail
+                while self.isTypeTerminal() and self.currentNode.getParent() :
+                    self.getNextNode()
+                if not self.currentNode.getParent():
+                    return #At Root Node
+                
+                paramList = self.checkParamSets()
+                
+    #             print 'typeStack:'
+    #             print self.typeStack #Debug Print
+    #             print 'paramList: ' 
+    #             print paramList #Debug Print
+    
+                if not paramList :
+                    self.error()
+                else :
+                    self.pop(paramList[-1])
+        exception:
+            
+    def error(self):
+        print >> sys.stderr,"Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue())
+        sys.stdout.flush()
+        raise Exception("Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue()))
+        
+    def checkParamSets(self):
+        try :
+            possParam = OperationType[self.currentNode.getToken().getValue()]
+        except:
+            possParam = []
+        for x in range(0, len(possParam)) :
+            if len(possParam[x]) == self.childCountStack[-1] + 1:
+                for y in range(0, len(possParam[x])-1):
+                    if self.typeStack[- self.childCountStack[-1] - 1 + y] == possParam[x][y]:
+                        isValid = True
+                    else :
+                        isValid = False
+                        break
+                if isValid:
+                    return possParam[x]
+                
+        for z in range(0, self.childCountStack[-1]):
+            if (self.typeStack[-z-2] == 'int' or self.typeStack[-z-2] == 'float') and not self.scopeNode:
+                self.convertScopeToFloat()
+                return self.checkParamSets()
+        
+        if self.currentNode == self.scopeNode and self.scopeNode:
+            self.scopeNode = ''
+            
+        return ''
+            
+        
+    def isTypeTerminal(self):
+        if len(self.typeStack) > 0 :
+            tempType = self.typeStack[-1]
+        else:
+            tempType = ''  
+        if tempType == 'bool' or tempType == 'int' or  tempType == 'float' or tempType == 'string' or tempType == 'name' or tempType == 'noop':
+            return True
+        else :
+            return False
+        
+    def getNextNode(self):
+        self.currentNode = self.ParseTree.getNextLeftMostNode()
+        self.childCountStack.append(self.currentNode.getChildCount())
+        self.typeStack.append(self.currentNode.getToken().getType())
+    
+    def pop(self, returnType):
+        argumentCount = self.childCountStack[-1]
+        for x in range(0, argumentCount + 1) :
+            self.childCountStack.pop()
+            self.typeStack.pop()
+            
+        if returnType :
+            self.typeStack.append(returnType)
+            self.childCountStack.append(0)
+        # else : do nothing
+    def getScopeNode(self):
+        currentScopeNode = self.currentNode
+        parentNode = currentScopeNode.getParent()
+        while self.isNumOper(parentNode):
+            currentScopeNode = parentNode
+            parentNode = currentScopeNode.getParent()
+        self.scopeNode = currentScopeNode
+    
+    def convertScopeToFloat(self):
+        if not self.scopeNode :
+            self.getScopeNode()
+        else :
+            return
+        tempTree = ParseTree(self.scopeNode)
+        currentNode = ''
+
+        while currentNode != tempTree.getRoot():
+            currentNode = tempTree.getNextLeftMostNode()
+            if self.isNumOper(currentNode) :
+                self.convertToFloatOp(currentNode)
+            if currentNode.getToken().getType() == 'int':
+                tempTree.injectType('float')            
+            
+        # self.convertToFloatOp(currentNode)
+        
+        for x in range (0, len(self.typeStack)) :
+            if self.typeStack[x] == 'int':
+                self.typeStack[x]  = 'float'
+                
+    def isNumOper(self, node):
+        value = node.getToken().getValue()
+        numOps = ['+', '-', '*', '^', '%', '/', '=', '<', '>', '<=', '>=', '!=', 'not_eq', 'sin', 'cos', 'tan', '++', '--', '-', 'endif']
+        try : 
+            numOps.index(value)
+            return True
+        except :
+            return False
+        
+    def convertToFloatOp(self, node):
+        value = node.getToken().getValue()
+        if value == '%':
+            node.getToken().setValue('mod')
+        elif value == '^':
+            node.getToken().setValue('f**')
+        elif value == 'endif':
+            return
+        else :
+            value = 'f' + value
+            node.getToken().setValue(value)
+        

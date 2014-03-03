@@ -35,4 +35,6 @@ class ParseNode:
     
     def getValue(self):
         return self.token.getValue()
-        
+    
+    def setValue(self, newValue):
+        self.token.setValue(newValue)

@@ -14,37 +14,53 @@ OperationType = {'and'    :  [['bool', 'bool', 'bool']],
                '!'      :   [['bool', 'bool']],
                'not'    :   [['bool', 'bool']],
 
-               '*'      :   [['int', 'int', 'int'], ['float', 'float', 'float']],
-               '/'      :   [['int', 'int', 'int'], ['float', 'float', 'float']],
-               '%'      :   [['int', 'int', 'int'], ['float', 'float', 'float']],
-               '^'      :   [['float', 'float', 'float']],
-               '+'      :   [['int', 'int', 'int'], ['float', 'float', 'float'], ['string', 'string', 'string']],               
+               '*'      :   [['int', 'int', 'int']],
+               '/'      :   [['int', 'int', 'int']],
+               '+'      :   [['int', 'int', 'int'], ['string', 'string', 'string']],
                
-               '='      :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
-               '<'      :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
-               '>'      :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
-               '<='     :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
-               '>='     :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
-               '!='     :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
-               'not_eq' :   [['int', 'int', 'bool'], ['float', 'float', 'bool']],
+               'f*'      :   [['float', 'float', 'float']],
+               'f/'      :   [['float', 'float', 'float']],
+               'mod'      :   [['float', 'float', 'float']],
+               'f**'      :   [['float', 'float', 'float']],
+               'f+'      :   [['float', 'float', 'float']],               
                
-               'sin'    :   [['float', 'float']],
-               'cos'    :   [['float', 'float']],
-               'tan'    :   [['float', 'float']],
+               '='      :   [['int', 'int', 'bool']],
+               '<'      :   [['int', 'int', 'bool']],
+               '>'      :   [['int', 'int', 'bool']],
+               '<='     :   [['int', 'int', 'bool']],
+               '>='     :   [['int', 'int', 'bool']],
+               '!='     :   [['int', 'int', 'bool']],
+               'not_eq' :   [['int', 'int', 'bool']],
                
-               '++'     :   [['int', 'int'], ['float', 'float']],
-               '--'     :   [['int', 'int'], ['float', 'float']],
+               'f='      :   [['float', 'float', 'bool']],
+               'f<'      :   [['float', 'float', 'bool']],
+               'f>'      :   [['float', 'float', 'bool']],
+               'f<='     :   [['float', 'float', 'bool']],
+               'f>='     :   [['float', 'float', 'bool']],
+               'f!='     :   [['float', 'float', 'bool']],
+               'fnot_eq' :   [['float', 'float', 'bool']],
+               
+               'fsin'    :   [['float', 'float']],
+               'fcos'    :   [['float', 'float']],
+               'ftan'    :   [['float', 'float']],
+               
+               '++'     :   [['int', 'int']],
+               '--'     :   [['int', 'int']],
+               
+               'f++'     :   [['float', 'float']],
+               'f--'     :   [['float', 'float']],
                
                
-               '-'      :   [['int', 'int'], ['float', 'float'], ['int', 'int', 'int'], ['float', 'float', 'float']],
+               '-'      :   [['int', 'int'], ['int', 'int', 'int']],
+               'f-'      :   [['float', 'float'], ['float', 'float', 'float']],
 
-               'if'     :   [['bool', 'int', 'int'], ['bool', 'float', 'float'], ['bool', 'string', 'string'], 
-                             ['bool', 'bool', 'bool'], ['bool', '', ''], 
-                             ['bool', 'int', 'int', 'int'], ['bool', 'float', 'float', 'float'], ['bool', 'string', 'string', 'string'], 
-                             ['bool', 'bool', 'bool', 'bool'], ['bool', '', '', '']
+               'endif'  :   [['bool', 'noop', 'int', 'int'], ['bool', 'noop', 'float', 'float'], ['bool', 'noop', 'string', 'string'], 
+                             ['bool', 'noop', 'bool', 'bool'], ['bool', 'noop', '', ''], 
+                             ['bool', 'noop', 'int', 'noop', 'int', 'int'], ['bool', 'noop', 'float', 'noop', 'float', 'float'], ['bool', 'noop', 'string', 'noop', 'string', 'string'], 
+                             ['bool', 'noop', 'bool', 'noop', 'bool', 'bool'], ['bool', 'noop', '', 'noop', '', '']
                             ],
                  
-               'stdout' :   [['string'], ''],
+               'stdout' :   [['string', ''], ['int', ''], ['float', ''], ['bool', '']],
                               
                ':='     :   [['name', 'bool', ''], ['name', 'int', ''], ['name', 'float', ''], ['name', 'string', '']],
                
