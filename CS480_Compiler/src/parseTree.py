@@ -2,8 +2,12 @@
 Created on Feb 5, 2014
 
 @author: mr_hickman
+
+Description: Takes a root parseNode and traverses the children in a leftmost derivation.  Supports injecting a type cast (only s>f) node 
+    at current traversal position, and can return the root node for comparison. When the traversal is complete it will continue to 
+    return ''.  Each tree is only good for one traversal, should add a reset function in the future.  
 '''
-from parseNode import ParseNode
+
 from token import Token
 
 class ParseTree:
@@ -32,11 +36,49 @@ class ParseTree:
             # Is finished
             return '' 
         
-    def injectType(self, type):
-        typeToken = Token('cast', 's>f', self.leftMost.getToken().getLine()) #TODO consider reusing token type of "type"
+    def injectType(self):
+        # Current casting is limited to s>f and can later be generalized to use a parameter
+        typeToken = Token('cast', 's>f', self.leftMost.getToken().getLine())
         typeNode = ParseNode(typeToken)
         typeNode.addChild(self.leftMost) #addChild sets parent
         self.currentNode.setChild(self.currentChild[-1], typeNode)
         
     def getRoot(self):
         return self.root
+    
+class ParseNode:
+    
+    def __init__(self, token):
+        self._parent = '' # if left unchanged then '' is a root node
+        self.token = token
+        self.children = []
+        
+    def getToken(self):
+        return self.token
+    
+    def getParent(self):
+        return self._parent
+    
+    def setChild(self, indx, child):
+        self.children[indx] = child
+        child._parent = self
+    
+    def addChild(self, childParseNode):
+        if childParseNode :
+            childParseNode._parent = self
+            self.children.append(childParseNode)
+            
+    def getChildCount(self):
+        return len(self.children)
+    
+    def getChild(self, indx):
+        if indx < len(self.children) : # this is redundant in this implementation
+            return self.children[indx]
+        else :
+            return ''
+    
+    def getValue(self):
+        return self.token.getValue()
+    
+    def setValue(self, newValue):
+        self.token.setValue(newValue)

@@ -1,0 +1,47 @@
+'''
+Created on Feb 5, 2014
+
+@author: mr_hickman
+
+Description: Takes a root parseNode and traverses the children in a leftmost derivation.  Supports injecting a type cast node 
+    at current traversal position, and can return the root node for comparison. When the traversal is complete it will continue to 
+    return ''.  Each tree is only good for one traversal, should add a reset function in the future.  
+'''
+
+from parseNode import ParseNode
+from token import Token
+
+class ParseTree:
+    def __init__(self, rootNode):
+        self.root = rootNode
+        self.currentNode = rootNode
+        self.currentChild = [-1]
+        self.currentChildCount = [rootNode.getChildCount()]
+        self.leftMost = ''
+
+    def getNextLeftMostNode(self):
+        if self.currentNode:
+            while self.currentChildCount[-1] != 0 and self.currentChild[-1] + 1 < self.currentChildCount[-1] :
+                self.currentChild[-1] += 1 
+                self.currentNode = self.currentNode.getChild(self.currentChild[-1])
+                self.currentChild.append(-1)
+                self.currentChildCount.append(self.currentNode.getChildCount())
+                
+            self.leftMost = self.currentNode
+            self.currentNode = self.currentNode.getParent()
+            self.currentChild.pop()
+            self.currentChildCount.pop()
+            self.leftMost.getToken().depth = len(self.currentChild)
+            return self.leftMost
+        else:
+            # Is finished
+            return '' 
+        
+    def injectType(self):
+        typeToken = Token('cast', 's>f', self.leftMost.getToken().getLine()) #TODO consider reusing token type of "type"
+        typeNode = ParseNode(typeToken)
+        typeNode.addChild(self.leftMost) #addChild sets parent
+        self.currentNode.setChild(self.currentChild[-1], typeNode)
+        
+    def getRoot(self):
+        return self.root

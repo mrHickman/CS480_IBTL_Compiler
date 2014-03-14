@@ -1,8 +1,9 @@
 from parseTree import ParseTree
 from operationType import OperationType
-from GForthConversion import FloatOp
-from parseNode import ParseNode
+# from GForthConversion import FloatOp
+from parseTree import ParseNode
 from token import Token
+from symbolTable import VariableTable
 import sys
 class TypeChecker:
     def __init__(self, parseTree):
@@ -12,8 +13,8 @@ class TypeChecker:
         self.typeStack = []
         self.getNextNode()
         self.scopeNode = ''
+        self.specialCheck = False
         self.checkType()
-
         
     def checkType(self):
         while self.currentNode.getParent(): # current will be the root at fail
@@ -30,12 +31,13 @@ class TypeChecker:
 #             print paramList #Debug Print
 #             print self.currentNode.getValue()
 #             print self.currentNode.getParent().getValue()
-
             if not paramList :
                 self.error()
-            else :
+            elif not self.specialCheck :
                 self.pop(paramList[-1])
-                
+            else :
+                self.specialCheck = False
+                continue
     def error(self):
         print >> sys.stderr,"Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue())
         sys.stdout.flush()
@@ -43,7 +45,7 @@ class TypeChecker:
     
     def isSpecial(self):
         value = self.currentNode.getToken().getValue()
-        specialValues = ['stdout', 'while', ':=', 'let']
+        specialValues = ['stdout', 'repeat', ':=', 'let']
         try : 
             specialValues.index(value)
             return True
@@ -57,6 +59,7 @@ class TypeChecker:
                 tempTree = ParseTree(self.currentNode)
                 currentTempNode = ''
                 while currentTempNode != tempTree.getRoot():
+                    #TODO tis broken fix it foo
                     currentTempNode = tempTree.getNextLeftMostNode()
                     if currentTempNode.getToken().getType() == 'string' :
                         newValue = currentTempNode.getValue()
@@ -77,6 +80,34 @@ class TypeChecker:
                 self.error()
             self.currentNode.setValue(opValue)
             return ['', '']
+        elif opValue == ':=':
+            tempTree = ParseTree(self.currentNode)
+            tempNode = tempTree.getNextLeftMostNode()
+            name = tempNode.getValue()
+            if name in VariableTable.keys() :
+                sometype = VariableTable[name]
+                return [sometype, '']
+            else :
+                print 'Undefined Variable'
+                self.error()
+        elif opValue == 'repeat': #while loop
+            #loop until noop then bool then noop return ''
+            pos = ''
+            for x in range(1,len(self.typeStack)):
+                if self.typeStack[-x] == 'noop' :
+                    pos = -x
+                    break
+            if pos and self.typeStack[pos - 1] == 'bool' and self.typeStack[pos - 2] == 'noop':
+                for x in range(0, 2 - pos):
+                    self.childCountStack.pop()
+                    self.typeStack.pop()
+                self.specialCheck = True
+                return ['', '']
+            else :
+                self.error() 
+            
+
+            # we want noop bool noop dont care return nothing 
         else :
             print 'Not supported yet, sorry.'
             self.error()
@@ -167,7 +198,7 @@ class TypeChecker:
                 
     def isNumOper(self, node):
         value = node.getToken().getValue()
-        numOps = ['+', '-', '*', '^', '%', '/', '=', '<', '>', '<=', '>=', '!=', 'not_eq', 'sin', 'cos', 'tan', '++', '--', '-', 'endif']
+        numOps = ['+', '-', '*', '^', '%', '/', '=', '<', '>', '<=', '>=', '!=', 'not_eq', 'sin', 'cos', 'tan', '++', '--', '-', 'endif', '-1 *']
         try : 
             numOps.index(value)
             return True
@@ -182,6 +213,8 @@ class TypeChecker:
             node.getToken().setValue('f**')
         elif value == 'endif':
             return
+        elif value == '-1 *':
+            node.getToken().setValue('-1e f*')
         else :
             value = 'f' + value
             node.getToken().setValue(value)

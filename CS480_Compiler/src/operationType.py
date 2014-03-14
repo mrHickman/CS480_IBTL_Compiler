@@ -18,11 +18,11 @@ OperationType = {'and'    :  [['bool', 'bool', 'bool']],
                '/'      :   [['int', 'int', 'int']],
                '+'      :   [['int', 'int', 'int'], ['string', 'string', 'string']],
                
-               'f*'      :   [['float', 'float', 'float']],
-               'f/'      :   [['float', 'float', 'float']],
-               'mod'      :   [['float', 'float', 'float']],
-               'f**'      :   [['float', 'float', 'float']],
-               'f+'      :   [['float', 'float', 'float']],               
+               'f*'     :   [['float', 'float', 'float']],
+               'f/'     :   [['float', 'float', 'float']],
+               'mod'    :   [['float', 'float', 'float']],
+               'f**'    :   [['float', 'float', 'float']],
+               'f+'     :   [['float', 'float', 'float']],               
                
                '='      :   [['int', 'int', 'bool']],
                '<'      :   [['int', 'int', 'bool']],
@@ -32,27 +32,29 @@ OperationType = {'and'    :  [['bool', 'bool', 'bool']],
                '!='     :   [['int', 'int', 'bool']],
                'not_eq' :   [['int', 'int', 'bool']],
                
-               'f='      :   [['float', 'float', 'bool']],
-               'f<'      :   [['float', 'float', 'bool']],
-               'f>'      :   [['float', 'float', 'bool']],
-               'f<='     :   [['float', 'float', 'bool']],
-               'f>='     :   [['float', 'float', 'bool']],
-               'f!='     :   [['float', 'float', 'bool']],
-               'fnot_eq' :   [['float', 'float', 'bool']],
+               'f='     :   [['float', 'float', 'bool']],
+               'f<'     :   [['float', 'float', 'bool']],
+               'f>'     :   [['float', 'float', 'bool']],
+               'f<='    :   [['float', 'float', 'bool']],
+               'f>='    :   [['float', 'float', 'bool']],
+               'f!='    :   [['float', 'float', 'bool']],
+               'fnot_eq':   [['float', 'float', 'bool']],
                
-               'fsin'    :   [['float', 'float']],
-               'fcos'    :   [['float', 'float']],
-               'ftan'    :   [['float', 'float']],
+               'fsin'   :   [['float', 'float']],
+               'fcos'   :   [['float', 'float']],
+               'ftan'   :   [['float', 'float']],
                
                '++'     :   [['int', 'int']],
                '--'     :   [['int', 'int']],
                
-               'f++'     :   [['float', 'float']],
-               'f--'     :   [['float', 'float']],
+               'f++'    :   [['float', 'float']],
+               'f--'    :   [['float', 'float']],
                
                
-               '-'      :   [['int', 'int'], ['int', 'int', 'int']],
-               'f-'      :   [['float', 'float'], ['float', 'float', 'float']],
+               '-1 *'   :   [['int', 'int']],
+               '-'      :   [['int', 'int', 'int']],
+               '-1e f*' :   [['float', 'float']],
+               'f-'     :   [['float', 'float', 'float']],
 
                'endif'  :   [['bool', 'noop', 'int', 'int'], ['bool', 'noop', 'float', 'float'], ['bool', 'noop', 'string', 'string'], 
                              ['bool', 'noop', 'bool', 'bool'], ['bool', 'noop', '', ''], 
@@ -64,8 +66,8 @@ OperationType = {'and'    :  [['bool', 'bool', 'bool']],
                               
                ':='     :   [['name', 'bool', ''], ['name', 'int', ''], ['name', 'float', ''], ['name', 'string', '']],
                
-               's>f' : [['int', 'float'], ['float', 'float']],
+               's>f'    : [['int', 'float'], ['float', 'float']],
                
-               'while'  :   [['?']], #These are unique and require additional logic to type check
+               'repeat' :   [['?']], #These are unique and require additional logic to type check
                'let'    :   [['?']]
                }

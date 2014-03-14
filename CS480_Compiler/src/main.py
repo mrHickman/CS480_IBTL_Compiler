@@ -11,7 +11,7 @@ from optparse import OptionParser
 from scanner import Scanner
 import characterCompare
 from lexicalAnalyzer import LexicalAnalyzer
-from parseNode import ParseNode
+from parseTree import ParseNode
 from parseTree import ParseTree
 from IBTLParser import Parser
 from token import Token
@@ -114,6 +114,16 @@ def testGFourthOutput(start, end):
             parse(filepath, False, True, True)
         except:
             print "Failed"
+
+def testFinalBatch(start, end):
+    for x in range(start, end+1) :
+        filepath = "TestFiles/FinalTestBatchSemantics/Test" +  str(x) + '.txt'
+        print '\n\n ' + filepath
+        try:
+            parse(filepath, False, True, True)
+        except:
+            print "Failed"
+                        
             
 def parse(myFile, printTree, checkSemantics, genGFourth):
     myLexicalAnalyzer = LexicalAnalyzer(myFile)
@@ -150,10 +160,11 @@ def main():
 #         printBreak()
 #         testSemanticParser(1, 54)
 #         printBreak()
-        testGFourthOutput(1,57)
+#        testGFourthOutput(1,60)
+        testFinalBatch(1,55)
         printBreak()
     else :
-        parse(options.SrcFilePath, True, True)
+        parse(options.SrcFilePath, False, True, True)
     
 def printBreak():
     print '_________________________________________________________________________________________'

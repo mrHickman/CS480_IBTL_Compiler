@@ -5,7 +5,7 @@ Created on Jan 29, 2014
 
 Description: Used as helper functions for the dfa in the lexicalAnalyzer.py
 '''
-from symbolTable import symbolTable as symbolTab
+from symbolTable import SymbolTable as symbolTab
 
 def isDigit(char):
     var = ord(char)

@@ -17,7 +17,7 @@ class ParserGForthOutput:
         self.getNextNode()
         self.gForth = ': prgm '
         self.generateGForth()
-        self.gForth += '; \n prgm \n bye' # may need to switch to \r
+        self.gForth += '; \n prgm \n' # may need to switch to \r
         print self.gForth
         
     

@@ -31,7 +31,7 @@ let|stdout|=
 
 from token import Token
 import characterCompare
-from constants import BUFFERSIZE as BUFFERSIZE
+BUFFERSIZE = 5 # play around with this for optimization
 import scanner
 import sys
 import time 

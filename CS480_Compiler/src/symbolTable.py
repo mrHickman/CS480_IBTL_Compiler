@@ -7,7 +7,7 @@ Description:
     Symbol Table to hold the keywords and identifiers for reference
 '''
 
-symbolTable = {'and'    :   'binop',
+SymbolTable = {'and'    :   'binop',
                'or'     :   'binop',
                '*'      :   'binop',
                '/'      :   'binop',
@@ -54,3 +54,4 @@ symbolTable = {'and'    :   'binop',
                
                's>f' : 'cast'
                }
+VariableTable = {}
