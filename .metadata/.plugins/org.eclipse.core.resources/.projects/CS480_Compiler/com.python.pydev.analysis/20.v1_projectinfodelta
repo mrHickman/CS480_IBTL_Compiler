@@ -1,14 +1,1 @@
-INSTUPmain
-C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\src\main.py
-INFOS:&&2|1|2|0&&2|3|2|0&&2|4|2|0&&2|5|2|0&&2|6|2|0&&2|7|2|0&&2|8|2|0&&2|9|2|0&&2|10|2|0&&2|2|2|0&&2|11|2|0
-testCharacterCompare=3
-printBreak=11
-testParser=6
-testFinalBatch=9
-testParseTree=5
-lexicalAnalyzer=4
-testGFourthOutput=8
-scan=1
-parse=10
-testSemanticParser=7
-main=2
+DELSTRtypeChecker

@@ -25,7 +25,6 @@ class TypeChecker:
             if not self.currentNode.getParent():
                 return  # At Root Node
             paramList = self.checkParamSets()
-            print self.variableTable
             
 #             print 'typeStack:'
 #             print self.typeStack #Debug Print
@@ -94,9 +93,18 @@ class TypeChecker:
             tempTree = ParseTree(self.currentNode)
             tempNode = tempTree.getNextLeftMostNode()
             name = tempNode.getValue()
-            if name in self.variableTable.keys() :
+            sometype = ''
+            if name in self.variableTable :
                 sometype = self.variableTable[name]
-                return [sometype, '']
+                if sometype == 'int' or sometype == 'bool':
+                    newOp = '!'
+                elif sometype == 'float':
+                    newOp = 'f!'
+                else:
+                    newOp = 'place'
+                self.currentNode.setValue(newOp)
+                
+                return [sometype, sometype, '']
             else :
                 print 'Undefined Variable'
                 self.error()
@@ -117,6 +125,7 @@ class TypeChecker:
                 self.error() 
             
         elif opValue == 'let':
+
             for x in range(0, self.childCountStack[-1], 2):
                 if self.typeStack[-x - 2] == 'type' and self.typeStack[-x - 3] == 'name':
                     name = self.currentNode.getChild(x).getValue()
@@ -180,10 +189,8 @@ class TypeChecker:
             possParam = OperationType[self.currentNode.getToken().getValue()]
         except:
             possParam = []
-            
         if self.isSpecial() :
             return self.checkSpecial()
-                
         for x in range(0, len(possParam)) :
             if len(possParam[x]) == self.childCountStack[-1] + 1:
                 for y in range(0, len(possParam[x]) - 1):
@@ -194,12 +201,10 @@ class TypeChecker:
                         break
                 if isValid:
                     return possParam[x]
-                
         for z in range(0, self.childCountStack[-1]):
             if (self.typeStack[-z - 2] == 'int' or self.typeStack[-z - 2] == 'float') and not self.scopeNode:
                 self.convertScopeToFloat()
                 return self.checkParamSets()
-        
         if self.currentNode == self.scopeNode and self.scopeNode:
             self.scopeNode = ''
             
@@ -211,7 +216,18 @@ class TypeChecker:
             tempType = self.typeStack[-1]
         else:
             return True 
-        if tempType == 'bool' or tempType == 'int' or  tempType == 'float' or tempType == 'string' or tempType == 'name' or tempType == 'noop' or tempType == 'type':
+        if tempType == 'name' and (self.currentNode.getParent().getValue() == 'let' or self.currentNode.getParent().getValue() == ':='):
+            return True
+        elif tempType == 'name':
+            if self.currentNode.getValue() in self.variableTable :
+                self.typeStack[-1] = self.variableTable[1][-1]
+                self.currentNode.setValue(self.currentNode.getValue() + ' @')
+                return True
+            else :
+                print 'undeclared variable'
+                self.error()
+                 
+        if tempType == 'bool' or tempType == 'int' or  tempType == 'float' or tempType == 'string' or tempType == 'noop' or tempType == 'type':
             return True
         else :
             return False

@@ -1,0 +1,313 @@
+from parseTree import ParseTree
+from operationType import OperationType
+# from GForthConversion import FloatOp
+from parseTree import ParseNode
+from token import Token
+import sys
+class TypeChecker:
+    def __init__(self, parseTree):
+        self.ParseTree = parseTree
+        self.currentNode = ''
+        self.childCountStack = []
+        self.typeStack = []
+        self.getNextNode()
+        self.scopeNode = ''
+        self.specialCheck = False
+        self.variableTable = {}
+        self.checkType()
+        
+    def checkType(self):
+#         print self.currentNode.getParent().getValue()
+#         print 'For science '+self.currentNode.getValue()
+        while self.currentNode.getParent():  # current will be the root at fail
+            while self.isTypeTerminal() and self.currentNode.getParent():
+                self.getNextNode()
+            if not self.currentNode.getParent():
+                return  # At Root Node
+            paramList = self.checkParamSets()
+            print 'hi aaaaaaa'
+            
+#             print 'typeStack:'
+#             print self.typeStack #Debug Print
+#             print 'paramList: ' 
+#             print paramList #Debug Print
+#             print self.currentNode.getValue()
+#             print self.currentNode.getParent().getValue()
+            if not paramList :
+                print 'errorssk?'
+                self.error()
+            elif not self.specialCheck :
+                print 'hhhhhhhhh'
+                self.pop(paramList[-1])
+            else :
+                print 'llllllllllll'
+                self.specialCheck = False
+                continue
+    def error(self):
+        print >> sys.stderr, "Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue())
+        sys.stdout.flush()
+        raise Exception("Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue()))
+    
+    def isSpecial(self):
+        value = self.currentNode.getToken().getValue()
+        print value + 'this one'
+        specialValues = ['stdout', 'repeat', ':=', 'let', 'endif']
+        try : 
+            specialValues.index(value)
+            return True
+        except :
+            return False
+        
+    def checkSpecial(self):
+        print 'hi ther'
+        opValue = self.currentNode.getToken().getValue()
+        if opValue == 'stdout':
+            if self.typeStack[-2] == 'string' :
+                opValue = 'CR'
+                tempTree = ParseTree(self.currentNode)
+                currentTempNode = ''
+                while currentTempNode != tempTree.getRoot():
+                    # TODO tis broken fix it foo
+                    currentTempNode = tempTree.getNextLeftMostNode()
+                    if currentTempNode.getToken().getType() == 'string' :
+                        newValue = currentTempNode.getValue()
+                        newValue = '.' + newValue[1:-1] + '"'
+                        currentTempNode.setValue(newValue)
+                    elif currentTempNode.getToken().getValue() == '+' :
+                        newValue = ''
+                        currentTempNode.setValue(newValue)
+                tempToken = Token('noop', 'CR', self.currentNode.getToken().getLine())
+                tempNode = ParseNode(tempToken)
+                tempNode._parent = self.currentNode
+                self.currentNode.children.insert(0, tempNode)
+            elif self.typeStack[-2] == 'int' or self.typeStack[-2] == 'bool' :
+                opValue = 'CR . CR'   
+            elif self.typeStack[-2] == 'float' :
+                opValue = 'CR f. CR'
+            else :
+                self.error()
+            self.currentNode.setValue(opValue)
+            
+            self.childCountStack.pop()
+            self.typeStack.pop()
+            self.childCountStack.pop()
+            self.typeStack.pop()
+            
+            self.specialCheck = True
+            return ['', '']
+        elif opValue == ':=':
+            print 'hello there'
+            tempTree = ParseTree(self.currentNode)
+            tempNode = tempTree.getNextLeftMostNode()
+            name = tempNode.getValue()
+            sometype = ''
+            if name in self.variableTable :
+                sometype = self.variableTable[name]
+                if sometype == 'int' or sometype == 'bool':
+                    newOp = '!'
+                elif sometype == 'float':
+                    newOp = 'f!'
+                else:
+                    newOp = 'place'
+                self.currentNode.setValue(newOp)
+                
+                return [sometype, sometype, '']
+            else :
+                print 'Undefined Variable'
+                self.error()
+        elif opValue == 'repeat':  # while loop
+            # loop until noop then bool then noop return ''
+            pos = ''
+            for x in range(1, len(self.typeStack)):
+                if self.typeStack[-x] == 'noop' :
+                    pos = -x
+                    break
+            if pos and self.typeStack[pos - 1] == 'bool' and self.typeStack[pos - 2] == 'noop':
+                for x in range(0, 2 - pos):
+                    self.childCountStack.pop()
+                    self.typeStack.pop()
+                self.specialCheck = True
+                return ['', '']
+            else :
+                self.error() 
+            
+        elif opValue == 'let':
+
+            for x in range(0, self.childCountStack[-1], 2):
+                if self.typeStack[-x - 2] == 'type' and self.typeStack[-x - 3] == 'name':
+                    name = self.currentNode.getChild(x).getValue()
+                    varType = self.currentNode.getChild(x + 1).getValue()
+                    if name in self.variableTable :
+                        # append to each sublist
+                        self.variableTable[name][0].append(1)  # todo add scope
+                        self.variableTable[name][1].append(varType)
+                        self.variableTable[name][2].append('g')
+                    else:
+                        self.variableTable[name] = [[1], [varType], ['g']]  # TODO add g/l 'global'/'local'
+                else:
+                    self.error()
+            self.pop('')
+            self.specialCheck = True
+            print 'lets'
+            return ['', '']          
+        elif opValue == 'endif':
+            possParam = OperationType['endif']
+            
+            if self.typeStack[-3] == 'bool' and self.typeStack[-2] == 'noop':
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.specialCheck = True
+                return ['','']
+                
+            if self.typeStack[-4]== 'bool' and self.typeStack[-3] == 'noop' and self.typeStack[-2] == 'noop':
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.specialCheck = True
+                return ['','']
+            
+            isValid = False
+            for x in range(0, len(possParam)) :
+                if len(possParam[x]) == self.childCountStack[-1] + 1 :
+                    for y in range(0, len(possParam[x]) - 1):
+                        if self.typeStack[-self.childCountStack[-1] - 1 + y] == possParam[x][y]:
+                            isValid = True
+                        else :
+                            isValid = False
+                            break
+                    if isValid:
+                        return possParam[x]
+            
+            
+        else :
+            print 'Not supported yet, sorry.'
+            self.error()
+            
+    def checkParamSets(self):
+        try :
+            possParam = OperationType[self.currentNode.getToken().getValue()]
+        except:
+            possParam = []
+        print 'nopeslk'
+        if self.isSpecial() :
+            return self.checkSpecial()
+        print 'a'
+        for x in range(0, len(possParam)) :
+            if len(possParam[x]) == self.childCountStack[-1] + 1:
+                for y in range(0, len(possParam[x]) - 1):
+                    if self.typeStack[-self.childCountStack[-1] - 1 + y] == possParam[x][y]:
+                        isValid = True
+                    else :
+                        isValid = False
+                        break
+                if isValid:
+                    return possParam[x]
+        print 'b'
+        for z in range(0, self.childCountStack[-1]):
+            if (self.typeStack[-z - 2] == 'int' or self.typeStack[-z - 2] == 'float') and not self.scopeNode:
+                self.convertScopeToFloat()
+                return self.checkParamSets()
+        print 'x'
+        if self.currentNode == self.scopeNode and self.scopeNode:
+            self.scopeNode = ''
+            
+        return ''
+            
+        
+    def isTypeTerminal(self):
+        print 'pppppppppp'
+        if len(self.typeStack) > 0 :
+            tempType = self.typeStack[-1]
+        else:
+            return True 
+        if tempType == 'name' and (self.currentNode.getParent().getValue() == 'let' or self.currentNode.getParent().getValue() == ':='):
+            return True
+        elif tempType == 'name':
+            if self.currentNode.getValue() in self.variableTable :
+                self.typeStack[-1] = self.variableTable[1][-1]
+                return True
+            else :
+                print 'undeclared variable'
+                self.error()
+                 
+        if tempType == 'bool' or tempType == 'int' or  tempType == 'float' or tempType == 'string' or tempType == 'noop' or tempType == 'type':
+            return True
+        else :
+            return False
+        
+    def getNextNode(self):
+        self.currentNode = self.ParseTree.getNextLeftMostNode()
+        self.childCountStack.append(self.currentNode.getChildCount())
+        self.typeStack.append(self.currentNode.getToken().getType())
+    
+    def pop(self, returnType):
+        argumentCount = self.childCountStack[-1]
+        for x in range(0, argumentCount + 1) :
+            self.childCountStack.pop()
+            self.typeStack.pop()
+            
+        if returnType :
+            self.typeStack.append(returnType)
+            self.childCountStack.append(0)
+        # else : do nothing
+    def getScopeNode(self):
+        currentScopeNode = self.currentNode
+        parentNode = currentScopeNode.getParent()
+        while self.isNumOper(parentNode):
+            currentScopeNode = parentNode
+            parentNode = currentScopeNode.getParent()
+        self.scopeNode = currentScopeNode
+    
+    def convertScopeToFloat(self):
+        if not self.scopeNode :
+            self.getScopeNode()
+        else :
+            return
+        tempTree = ParseTree(self.scopeNode)
+        currentNode = ''
+
+        while currentNode != tempTree.getRoot():
+            currentNode = tempTree.getNextLeftMostNode()
+            if self.isNumOper(currentNode) :
+                self.convertToFloatOp(currentNode)
+            if currentNode.getToken().getType() == 'int':
+                tempTree.injectType()  
+            
+        # self.convertToFloatOp(currentNode)
+        
+        for x in range (0, len(self.typeStack)) :
+            if self.typeStack[x] == 'int':
+                self.typeStack[x] = 'float'
+                
+    def isNumOper(self, node):
+        value = node.getToken().getValue()
+        numOps = ['+', '-', '*', '^', '%', '/', '=', '<', '>', '<=', '>=', '!=', 'not_eq', 'sin', 'cos', 'tan', '++', '--', '-', 'endif', '-1 *']
+        try : 
+            numOps.index(value)
+            return True
+        except :
+            return False
+        
+    def convertToFloatOp(self, node):
+        value = node.getToken().getValue()
+        if value == '%':
+            node.getToken().setValue('mod')
+        elif value == '^':
+            node.getToken().setValue('f**')
+        elif value == 'endif':
+            return
+        elif value == '-1 *':
+            node.getToken().setValue('-1e f*')
+        else :
+            value = 'f' + value
+            node.getToken().setValue(value)
+        
