@@ -25,7 +25,7 @@ main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\s
 33=Parser.getNextToken
 30=Parser.__init__
 6=parseTree
-32=ParseTree.getNextLeftMostNode
+31=ParseTree.getNextLeftMostNode
 24=TypeChecker.__init__
 11=typeChecker
 39=TypeChecker.getScopeNode
@@ -48,7 +48,7 @@ main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\s
 27=Parser.getParent
 26=ParserGForthOutput.__init__
 22=Token
-31=ParseTree.__init__
+32=ParseTree.__init__
 3=main
 43=Token.setValue
 42=TypeChecker.checkType
@@ -60,8 +60,9 @@ main|0|C:\Users\mr_hickman\Documents\GitHub\CS480_IBTL_Compiler\CS480_Compiler\s
 41=TypeChecker.checkSpecial
 -- END DICTIONARY
 -- START TREE 1
-17
+18
 buf|1|BUFFERSIZE!11@
+err|0|
 isa|1|isAlpha!18@
 isd|1|isDigit!18@
 isk|1|isKeyword!18@
@@ -80,7 +81,8 @@ typ|1|TypeChecker!89@
 var|1|VariableTable!75@
 -- END TREE
 -- START TREE 2
-58
+60
+!<m|0|
 S|1|S!12&42@
 Sp|1|Sp!12&42@
 T|1|T!12&42@
@@ -98,15 +100,15 @@ cha|1|charCheck!21&10@
 che|3|checkSpecial!16&90@checkParamSets!16&90@checkType!16&90@
 chi|2|childCountStack!24&91@children!23&51@
 con|2|convertToFloatOp!16&90@convertScopeToFloat!16&90@
-cur|17|currentNode!25&59@currentNode!26&59@currentNode!27&43@currentNode!28&43@currentNode!29&43@currentNode!30&43@currentNode!31&51@currentNode!32&51@currentChildCount!31&51@currentToken!33&43@currentToken!30&43@currentChild!31&51@current!34&67@current!35&67@current!36&67@currentNode!37&91@currentNode!24&91@
+cur|17|currentNode!25&59@currentNode!26&59@currentNode!27&43@currentNode!28&43@currentNode!29&43@currentNode!30&43@currentNode!31&51@currentNode!32&51@currentChildCount!32&51@currentToken!33&43@currentToken!30&43@currentChild!32&51@current!34&67@current!35&67@current!36&67@currentNode!37&91@currentNode!24&91@
 dep|1|depth!38&83@
 dig|1|digitFSA!21&10@
-err|3|error!12&42@error!21&10@error!16&90@
+err|4|error!12&42@error!21&10@error!16&90@error!15&58@
 exp|2|exprlist!12&42@expr!12&42@
 fil|2|file!36&67@fillBuffer!21&10@
 flo|1|floatFSA!21&10@
 gen|1|generateGForth!15&58@
-get|17|getValue!17&50@getNextCharacter!19&66@getNextToken!12&42@getNextLeftMostNode!18&50@getLine!22&82@getToken!17&50@getValue!22&82@getNextNode!15&58@getParent!12&42@getNextNode!16&90@getChild!17&50@getRoot!18&50@getChildCount!17&50@getNextChar!21&10@getScopeNode!16&90@getType!22&82@getParent!17&50@
+get|18|getValue!17&50@getNextCharacter!19&66@getNextToken!12&42@getNextLeftMostNode!18&50@getType!17&50@getLine!22&82@getToken!17&50@getValue!22&82@getNextNode!15&58@getParent!12&42@getNextNode!16&90@getChild!17&50@getChildCount!17&50@getRoot!18&50@getNextChar!21&10@getScopeNode!16&90@getType!22&82@getParent!17&50@
 gfo|1|gForth!26&59@
 inj|1|injectType!18&50@
 ism|2|isMultiLineComment!34&67@isMultiLineComment!36&67@
@@ -115,7 +117,7 @@ iso|1|isOperType!12&42@
 iss|1|isSpecial!16&90@
 ist|2|isTypeTerminal!16&90@isTerminalType!12&42@
 las|2|last!34&67@last!36&67@
-lef|2|leftMost!32&51@leftMost!31&51@
+lef|2|leftMost!31&51@leftMost!32&51@
 lin|1|line!38&83@
 nam|1|nameFSA!21&10@
 non|1|nonTermOper!12&42@
@@ -124,8 +126,8 @@ ope|2|oper!12&42@operExpr!12&42@
 par|3|parseTree!30&43@parseTree!26&59@ParseTree!24&91@
 pea|7|peak!34&67@peak!35&67@peak!36&67@peakToken!33&43@peakToken!30&43@peakNode!25&59@peakNode!26&59@
 pop|1|pop!16&90@
-pri|1|printToken!22&82@
-roo|1|root!31&51@
+pri|2|printLets!15&58@printToken!22&82@
+roo|1|root!32&51@
 sco|3|scopeNode!39&91@scopeNode!40&91@scopeNode!24&91@
 sep|1|sepFSA!21&10@
 set|3|setValue!22&82@setChild!17&50@setValue!17&50@
@@ -137,6 +139,7 @@ ter|1|termOper!12&42@
 tok|5|tokenIndx!30&43@tokenList!13&11@token!23&51@tokenType!38&83@tokenList!30&43@
 typ|1|typeStack!24&91@
 uno|1|unop!12&42@
+vai|0|
 val|2|value!43&83@value!38&83@
-var|1|varlist!12&42@
+var|2|variableTable!24&91@varlist!12&42@
 -- END TREE

@@ -82,3 +82,6 @@ class ParseNode:
     
     def setValue(self, newValue):
         self.token.setValue(newValue)
+    
+    def getType(self):
+        return self.token.getType()

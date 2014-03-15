@@ -1,1 +1,1 @@
-[[let[z string]][:= z "HI"]]
+[[let[[z string]]][:= z "HI"]]

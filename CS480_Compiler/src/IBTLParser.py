@@ -5,7 +5,6 @@ Created on Feb 5, 2014
 '''
 
 from token import Token
-from lexicalAnalyzer import LexicalAnalyzer
 from parseTree import ParseTree
 from parseTree import ParseNode
 from typeChecker import TypeChecker
@@ -22,8 +21,9 @@ class Parser:
             self.peakToken = self.tokenList[1]
         self.tokenIndx = 1
         self.currentNode = ParseNode(Token('root','root',0))
-        self.T()
         self.parseTree = ParseTree(self.currentNode) # Functions pass by value not by reference, important to be after T() call
+        self.T()
+        self.parseTree = ParseTree(self.currentNode)
         
         if checkSemantics:
             TypeChecker(self.parseTree)
@@ -157,6 +157,9 @@ class Parser:
             else :
                 self.error()
         elif self.currentToken.value == 'let' :
+            # Special Case! Let must be a direct child of root
+            if self.currentNode != self.parseTree.getRoot():
+                self.error()
             self.addNonTermNode()
             if self.currentToken.value == '[' :
                 self.getNextToken()
@@ -186,6 +189,8 @@ class Parser:
             self.nonTermOper()
     
     def termOper(self):
+        if self.currentToken.tokenType == 'string' :
+            self.currentToken.value = 'S" ' + self.currentToken.value[1:] 
         self.addTermNode()
         
     def nonTermOper(self):
