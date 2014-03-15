@@ -19,12 +19,13 @@ class TypeChecker:
     def checkType(self):
 #         print self.currentNode.getParent().getValue()
 #         print 'For science '+self.currentNode.getValue()
-        while self.currentNode.getParent(): # current will be the root at fail
+        while self.currentNode.getParent():  # current will be the root at fail
             while self.isTypeTerminal() and self.currentNode.getParent():
                 self.getNextNode()
             if not self.currentNode.getParent():
-                return #At Root Node
+                return  # At Root Node
             paramList = self.checkParamSets()
+            print self.variableTable
             
 #             print 'typeStack:'
 #             print self.typeStack #Debug Print
@@ -40,13 +41,13 @@ class TypeChecker:
                 self.specialCheck = False
                 continue
     def error(self):
-        print >> sys.stderr,"Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue())
+        print >> sys.stderr, "Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue())
         sys.stdout.flush()
         raise Exception("Semantic error, Type on line " + str(self.currentNode.getToken().getLine()) + ' with token value ' + str(self.currentNode.getToken().getValue()))
     
     def isSpecial(self):
         value = self.currentNode.getToken().getValue()
-        specialValues = ['stdout', 'repeat', ':=', 'let']
+        specialValues = ['stdout', 'repeat', ':=', 'let', 'endif']
         try : 
             specialValues.index(value)
             return True
@@ -61,11 +62,11 @@ class TypeChecker:
                 tempTree = ParseTree(self.currentNode)
                 currentTempNode = ''
                 while currentTempNode != tempTree.getRoot():
-                    #TODO tis broken fix it foo
+                    # TODO tis broken fix it foo
                     currentTempNode = tempTree.getNextLeftMostNode()
                     if currentTempNode.getToken().getType() == 'string' :
                         newValue = currentTempNode.getValue()
-                        newValue = '." ' + newValue[1:-1] + '"'
+                        newValue = '.' + newValue[1:-1] + '"'
                         currentTempNode.setValue(newValue)
                     elif currentTempNode.getToken().getValue() == '+' :
                         newValue = ''
@@ -81,6 +82,13 @@ class TypeChecker:
             else :
                 self.error()
             self.currentNode.setValue(opValue)
+            
+            self.childCountStack.pop()
+            self.typeStack.pop()
+            self.childCountStack.pop()
+            self.typeStack.pop()
+            
+            self.specialCheck = True
             return ['', '']
         elif opValue == ':=':
             tempTree = ParseTree(self.currentNode)
@@ -92,10 +100,10 @@ class TypeChecker:
             else :
                 print 'Undefined Variable'
                 self.error()
-        elif opValue == 'repeat': #while loop
-            #loop until noop then bool then noop return ''
+        elif opValue == 'repeat':  # while loop
+            # loop until noop then bool then noop return ''
             pos = ''
-            for x in range(1,len(self.typeStack)):
+            for x in range(1, len(self.typeStack)):
                 if self.typeStack[-x] == 'noop' :
                     pos = -x
                     break
@@ -109,23 +117,59 @@ class TypeChecker:
                 self.error() 
             
         elif opValue == 'let':
-            for x in range(0,self.childCountStack[-1], 2):
-                if self.typeStack[-x-2] == 'type' and self.typeStack[-x-3] == 'name':
+            for x in range(0, self.childCountStack[-1], 2):
+                if self.typeStack[-x - 2] == 'type' and self.typeStack[-x - 3] == 'name':
                     name = self.currentNode.getChild(x).getValue()
-                    varType = self.currentNode.getChild(x+1).getValue()
+                    varType = self.currentNode.getChild(x + 1).getValue()
                     if name in self.variableTable :
                         # append to each sublist
-                        self.variableTable[name][0].append(1) # todo add scope
+                        self.variableTable[name][0].append(1)  # todo add scope
                         self.variableTable[name][1].append(varType)
                         self.variableTable[name][2].append('g')
                     else:
-                        self.variableTable[name]=[[1],[varType],['g']] # TODO add g/l 'global'/'local'
+                        self.variableTable[name] = [[1], [varType], ['g']]  # TODO add g/l 'global'/'local'
                 else:
-                    print 'lolz'
                     self.error()
             self.pop('')
             self.specialCheck = True
-            return ['','']
+            return ['', '']          
+        elif opValue == 'endif':
+            possParam = OperationType['endif']
+            
+            if self.typeStack[-3] == 'bool' and self.typeStack[-2] == 'noop':
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.specialCheck = True
+                return ['','']
+                
+            if self.typeStack[-4]== 'bool' and self.typeStack[-3] == 'noop' and self.typeStack[-2] == 'noop':
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.childCountStack.pop()
+                self.typeStack.pop()
+                self.specialCheck = True
+                return ['','']
+            
+            isValid = False
+            for x in range(0, len(possParam)) :
+                if len(possParam[x]) == self.childCountStack[-1] + 1 :
+                    for y in range(0, len(possParam[x]) - 1):
+                        if self.typeStack[-self.childCountStack[-1] - 1 + y] == possParam[x][y]:
+                            isValid = True
+                        else :
+                            isValid = False
+                            break
+                    if isValid:
+                        return possParam[x]
+            
             
         else :
             print 'Not supported yet, sorry.'
@@ -142,8 +186,8 @@ class TypeChecker:
                 
         for x in range(0, len(possParam)) :
             if len(possParam[x]) == self.childCountStack[-1] + 1:
-                for y in range(0, len(possParam[x])-1):
-                    if self.typeStack[- self.childCountStack[-1] - 1 + y] == possParam[x][y]:
+                for y in range(0, len(possParam[x]) - 1):
+                    if self.typeStack[-self.childCountStack[-1] - 1 + y] == possParam[x][y]:
                         isValid = True
                     else :
                         isValid = False
@@ -152,7 +196,7 @@ class TypeChecker:
                     return possParam[x]
                 
         for z in range(0, self.childCountStack[-1]):
-            if (self.typeStack[-z-2] == 'int' or self.typeStack[-z-2] == 'float') and not self.scopeNode:
+            if (self.typeStack[-z - 2] == 'int' or self.typeStack[-z - 2] == 'float') and not self.scopeNode:
                 self.convertScopeToFloat()
                 return self.checkParamSets()
         
@@ -214,7 +258,7 @@ class TypeChecker:
         
         for x in range (0, len(self.typeStack)) :
             if self.typeStack[x] == 'int':
-                self.typeStack[x]  = 'float'
+                self.typeStack[x] = 'float'
                 
     def isNumOper(self, node):
         value = node.getToken().getValue()

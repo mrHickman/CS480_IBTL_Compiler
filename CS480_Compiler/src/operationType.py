@@ -56,10 +56,12 @@ OperationType = {'and'    :  [['bool', 'bool', 'bool']],
                '-1e f*' :   [['float', 'float']],
                'f-'     :   [['float', 'float', 'float']],
 
-               'endif'  :   [['bool', 'noop', 'int', 'int'], ['bool', 'noop', 'float', 'float'], ['bool', 'noop', 'string', 'string'], 
-                             ['bool', 'noop', 'bool', 'bool'], ['bool', 'noop', '', ''], 
-                             ['bool', 'noop', 'int', 'noop', 'int', 'int'], ['bool', 'noop', 'float', 'noop', 'float', 'float'], ['bool', 'noop', 'string', 'noop', 'string', 'string'], 
-                             ['bool', 'noop', 'bool', 'noop', 'bool', 'bool'], ['bool', 'noop', '', 'noop', '', '']
+               'endif'  :   [['bool', 'noop', 'int', 'int'], ['bool', 'noop', 'float', 'float'], 
+                             ['bool', 'noop', 'string', 'string'], ['bool', 'noop', 'bool', 'bool'], 
+                             ['bool', 'noop', 'int', 'noop', 'int', 'int'], 
+                             ['bool', 'noop', 'float', 'noop', 'float', 'float'], 
+                             ['bool', 'noop', 'string', 'noop', 'string', 'string'], 
+                             ['bool', 'noop', 'bool', 'noop', 'bool', 'bool'] 
                             ],
                  
                'stdout' :   [['string', ''], ['int', ''], ['float', ''], ['bool', '']],

@@ -101,8 +101,10 @@ class LexicalAnalyzer:
             while characterCompare.isDigit(char):
                 num = num + char
                 char = self.getNextChar()
+        else :
+            num += 'e'
         
-        if num == '.':
+        if num == '.e':
             self.error(num)
 
         self.tokenList.append(Token('float', num, self._line))

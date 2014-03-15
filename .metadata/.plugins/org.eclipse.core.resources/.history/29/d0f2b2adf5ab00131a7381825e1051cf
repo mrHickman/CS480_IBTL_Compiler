@@ -1,0 +1,73 @@
+'''
+Created on Jan 28, 2014
+
+@author: anton_000
+
+Description: 
+    Symbol Table to hold the keywords and identifiers for reference
+'''
+# Values are determined via, 0-n-2 are argument param, n-1 is return type
+OperationType = {'and'    :  [['bool', 'bool', 'bool']],
+               'or'     :   [['bool', 'bool', 'bool']],
+               '||'     :   [['bool', 'bool', 'bool']],
+               '&&'     :   [['bool', 'bool', 'bool']],
+               '!'      :   [['bool', 'bool']],
+               'not'    :   [['bool', 'bool']],
+
+               '*'      :   [['int', 'int', 'int']],
+               '/'      :   [['int', 'int', 'int']],
+               '+'      :   [['int', 'int', 'int'], ['string', 'string', 'string']],
+               
+               'f*'     :   [['float', 'float', 'float']],
+               'f/'     :   [['float', 'float', 'float']],
+               'mod'    :   [['float', 'float', 'float']],
+               'f**'    :   [['float', 'float', 'float']],
+               'f+'     :   [['float', 'float', 'float']],               
+               
+               '='      :   [['int', 'int', 'bool']],
+               '<'      :   [['int', 'int', 'bool']],
+               '>'      :   [['int', 'int', 'bool']],
+               '<='     :   [['int', 'int', 'bool']],
+               '>='     :   [['int', 'int', 'bool']],
+               '!='     :   [['int', 'int', 'bool']],
+               'not_eq' :   [['int', 'int', 'bool']],
+               
+               'f='     :   [['float', 'float', 'bool']],
+               'f<'     :   [['float', 'float', 'bool']],
+               'f>'     :   [['float', 'float', 'bool']],
+               'f<='    :   [['float', 'float', 'bool']],
+               'f>='    :   [['float', 'float', 'bool']],
+               'f!='    :   [['float', 'float', 'bool']],
+               'fnot_eq':   [['float', 'float', 'bool']],
+               
+               'fsin'   :   [['float', 'float']],
+               'fcos'   :   [['float', 'float']],
+               'ftan'   :   [['float', 'float']],
+               
+               '++'     :   [['int', 'int']],
+               '--'     :   [['int', 'int']],
+               
+               'f++'    :   [['float', 'float']],
+               'f--'    :   [['float', 'float']],
+               
+               
+               '-1 *'   :   [['int', 'int']],
+               '-'      :   [['int', 'int', 'int']],
+               '-1e f*' :   [['float', 'float']],
+               'f-'     :   [['float', 'float', 'float']],
+
+               'endif'  :   [['bool', 'noop', 'int', 'int'], ['bool', 'noop', 'float', 'float'], ['bool', 'noop', 'string', 'string'], 
+                             ['bool', 'noop', 'bool', 'bool'], ['bool', 'noop', '', ''], 
+                             ['bool', 'noop', 'int', 'noop', 'int', 'int'], ['bool', 'noop', 'float', 'noop', 'float', 'float'], ['bool', 'noop', 'string', 'noop', 'string', 'string'], 
+                             ['bool', 'noop', 'bool', 'noop', 'bool', 'bool'], ['bool', 'noop', 'noop', '']
+                            ],
+                 
+               'stdout' :   [['string', ''], ['int', ''], ['float', ''], ['bool', '']],
+                              
+               ':='     :   [['name', 'bool', ''], ['name', 'int', ''], ['name', 'float', ''], ['name', 'string', '']],
+               
+               's>f'    : [['int', 'float'], ['float', 'float']],
+               
+               'repeat' :   [['?']], #These are unique and require additional logic to type check
+               'let'    :   [['?']]
+               }

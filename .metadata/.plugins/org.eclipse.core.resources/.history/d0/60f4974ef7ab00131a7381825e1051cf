@@ -1,0 +1,17 @@
+[
+   [
+      stdout
+      [
+        sin
+        [-.5236]
+      ]
+    ]
+    [
+      stdout
+      [
+        or
+        true
+        false
+      ]
+   ]
+]
